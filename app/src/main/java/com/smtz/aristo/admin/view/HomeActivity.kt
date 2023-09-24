@@ -12,5 +12,15 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnAddNewProduct.setOnClickListener {
+
+        }
+        binding.btnRecentProducts.setOnClickListener {
+
+        }
+        binding.btnHelpCenter.setOnClickListener {
+
+        }
     }
 }
