@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.smtz.aristo.admin.databinding.ActivityHomeBinding
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 
 class HomeActivity : AppCompatActivity() {
 
@@ -13,6 +16,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AppCenter.start(
+            application, "9e748b4f-85ad-454e-a939-60a8889e7808\"",
+            Analytics::class.java, Crashes::class.java
+        )
 
         binding.btnEdit.setOnClickListener {
             startActivity(Intent(applicationContext, EditActivity::class.java))

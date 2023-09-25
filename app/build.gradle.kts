@@ -37,7 +37,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -49,4 +48,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // App Center
+    implementation("com.microsoft.appcenter:appcenter-analytics:4.4.5")
+    implementation("com.microsoft.appcenter:appcenter-crashes:4.4.5")
+
 }
