@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, EditActivity::class.java))
         }
         binding.btnAddNewProduct.setOnClickListener {
-
+            startActivity(Intent(applicationContext, CreateMainCategoryActivity::class.java))
         }
         binding.btnRecentProducts.setOnClickListener {
             startActivity(Intent(applicationContext, MainCategoriesActivity::class.java))

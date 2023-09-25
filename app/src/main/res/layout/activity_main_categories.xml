@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background"
     tools:context=".view.MainCategoriesActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/color_primary">
+        android:background="@color/background">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:background="@color/color_primary"
+            android:background="@color/background"
             tools:listitem="@layout/view_holder_main_category" />
 
         <View
@@ -61,7 +62,7 @@
             android:id="@+id/rv_sub_categories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_primary"
+            android:background="@color/background"
             android:paddingTop="@dimen/margin_medium"
             tools:listitem="@layout/view_holder_sub_category"
             android:paddingStart="10dp"/>
