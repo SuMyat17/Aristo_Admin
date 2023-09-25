@@ -17,9 +17,33 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            android:name=".view.AddSubCategoryDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.CreateSubCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddMainCategoryDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.CreateMainCategoryActivity"
+            android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".view.HomeActivity"
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".view.MainCategoriesActivity"
@@ -34,5 +58,6 @@
             android:name=".view.EditActivity"
             android:exported="false" />
     </application>
+
 
 </manifest>
