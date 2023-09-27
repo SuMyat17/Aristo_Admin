@@ -1,9 +1,8 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.databinding.ActivityEditBinding
+import com.aristo.admin.databinding.ActivityEditBinding
 
 class EditActivity : AppCompatActivity() {
 

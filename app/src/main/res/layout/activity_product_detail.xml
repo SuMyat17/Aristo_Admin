@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_primary"
     android:orientation="vertical"
-    tools:context=".view.ProductDetailActivity">
+    tools:context="com.aristo.admin.view.ProductDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

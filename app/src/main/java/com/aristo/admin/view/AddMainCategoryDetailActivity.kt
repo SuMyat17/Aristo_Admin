@@ -1,10 +1,9 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.databinding.ActivityAddMainCategoryDetailBinding
+import com.aristo.admin.databinding.ActivityAddMainCategoryDetailBinding
 
 class AddMainCategoryDetailActivity : AppCompatActivity() {
 

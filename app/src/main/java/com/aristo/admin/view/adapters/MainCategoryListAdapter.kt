@@ -1,12 +1,12 @@
-package com.smtz.aristo.admin.view.adapters
+package com.aristo.admin.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.model.Category
+import com.aristo.admin.R
+import com.aristo.admin.model.Category
 
 class MainCategoryListAdapter(private val context: MainCategoriesRecyclerViewListener, private val mainCategoryList: ArrayList<Category>) : RecyclerView.Adapter<MainCategoryListAdapter.MainCategoryListViewHolder>() {
 

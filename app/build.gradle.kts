@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.smtz.aristo.admin"
+    namespace = "com.aristo.admin"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.smtz.aristo.admin"
+        applicationId = "com.aristo.admin"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -52,5 +52,10 @@ dependencies {
     // App Center
     implementation("com.microsoft.appcenter:appcenter-analytics:4.4.5")
     implementation("com.microsoft.appcenter:appcenter-crashes:4.4.5")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
 
 }

@@ -1,12 +1,10 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.databinding.ActivityCreateSubCategoryBinding
+import com.aristo.admin.databinding.ActivityCreateSubCategoryBinding
 
 class CreateSubCategoryActivity : AppCompatActivity() {
 

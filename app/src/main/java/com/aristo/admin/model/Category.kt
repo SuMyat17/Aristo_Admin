@@ -1,4 +1,4 @@
-package com.smtz.aristo.admin.model
+package com.aristo.admin.model
 
 import java.io.Serializable
 

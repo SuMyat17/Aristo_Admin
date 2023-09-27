@@ -1,11 +1,10 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.databinding.ActivityCreateMainCategoryBinding
+import com.aristo.admin.databinding.ActivityCreateMainCategoryBinding
 
 class CreateMainCategoryActivity : AppCompatActivity() {
 
@@ -20,7 +19,7 @@ class CreateMainCategoryActivity : AppCompatActivity() {
         setRecyclerViewAdapter()
 
         binding.createNewCategory.setOnClickListener {
-            val intent = Intent(this,AddMainCategoryDetailActivity::class.java)
+            val intent = Intent(this, AddMainCategoryDetailActivity::class.java)
             startActivity(intent)
         }
     }

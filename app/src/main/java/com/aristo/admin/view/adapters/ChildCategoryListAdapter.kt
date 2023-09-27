@@ -1,4 +1,4 @@
-package com.smtz.aristo.admin.view.adapters
+package com.aristo.admin.view.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.model.Category
-import com.smtz.aristo.admin.view.ChildCategoriesActivity
-import com.smtz.aristo.admin.view.ProductDetailActivity
+import com.aristo.admin.R
+import com.aristo.admin.model.Category
+import com.aristo.admin.view.ChildCategoriesActivity
+import com.aristo.admin.view.ProductDetailActivity
 
 class ChildCategoryListAdapter(private val context: Context, private val childCategoryList: ArrayList<Category>) : RecyclerView.Adapter<ChildCategoryListAdapter.ChildCategoriesListRecyclerViewHolder>() {
 

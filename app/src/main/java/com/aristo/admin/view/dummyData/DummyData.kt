@@ -1,6 +1,6 @@
-package com.smtz.aristo.admin.view.dummyData
+package com.aristo.admin.view.dummyData
 
-import com.smtz.aristo.admin.model.Category
+import com.aristo.admin.model.Category
 
 val dummyDataList: ArrayList<Category> = arrayListOf()
 

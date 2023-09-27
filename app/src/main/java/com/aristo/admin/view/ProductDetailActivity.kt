@@ -1,9 +1,9 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.smtz.aristo.admin.databinding.ActivityProductDetailBinding
-import com.smtz.aristo.admin.model.Category
+import com.aristo.admin.databinding.ActivityProductDetailBinding
+import com.aristo.admin.model.Category
 
 class ProductDetailActivity : AppCompatActivity() {
 

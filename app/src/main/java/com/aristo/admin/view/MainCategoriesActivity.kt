@@ -1,4 +1,4 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import CategoriesViewModel
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.smtz.aristo.admin.databinding.ActivityMainCategoriesBinding
-import com.smtz.aristo.admin.view.adapters.MainCategoryListAdapter
-import com.smtz.aristo.admin.view.adapters.MainCategoriesRecyclerViewListener
-import com.smtz.aristo.admin.view.adapters.SubCategoryListAdapter
+import com.aristo.admin.databinding.ActivityMainCategoriesBinding
+import com.aristo.admin.view.adapters.MainCategoryListAdapter
+import com.aristo.admin.view.adapters.MainCategoriesRecyclerViewListener
+import com.aristo.admin.view.adapters.SubCategoryListAdapter
 
 class MainCategoriesActivity : AppCompatActivity(), MainCategoriesRecyclerViewListener {
 

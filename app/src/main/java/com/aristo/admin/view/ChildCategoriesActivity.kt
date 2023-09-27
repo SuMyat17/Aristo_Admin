@@ -1,11 +1,11 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.smtz.aristo.admin.databinding.ActivityChildCategoriesBinding
-import com.smtz.aristo.admin.model.Category
-import com.smtz.aristo.admin.view.adapters.ChildCategoryListAdapter
+import com.aristo.admin.databinding.ActivityChildCategoriesBinding
+import com.aristo.admin.model.Category
+import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 
 class ChildCategoriesActivity : AppCompatActivity() {
 

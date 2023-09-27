@@ -1,4 +1,4 @@
-package com.smtz.aristo.admin.view.adapters
+package com.aristo.admin.view.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.smtz.aristo.admin.view.ChildCategoriesActivity
-import com.smtz.aristo.admin.R
-import com.smtz.aristo.admin.model.Category
+import com.aristo.admin.R
+import com.aristo.admin.view.ChildCategoriesActivity
+import com.aristo.admin.model.Category
 
 class SubCategoryListAdapter(private val context: Context, private val subCategoryList: List<Category>) : RecyclerView.Adapter<SubCategoryListAdapter.SubCategoryListViewHolder>() {
 

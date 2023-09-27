@@ -1,34 +1,33 @@
-package com.smtz.aristo.admin.view
+package com.aristo.admin.view
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.smtz.aristo.admin.R
+import com.aristo.admin.R
 
-class MainCategoryListRecyclerViewAdapter (val context: Context) : RecyclerView.Adapter<MainCategoryListRecyclerViewAdapter.MainCategoryListRecyclerViewHolder>(){
+class SubCategoryListRecyclerViewAdapter (val context: Context) : RecyclerView.Adapter<SubCategoryListRecyclerViewAdapter.SubCategoryListRecyclerViewHolder>(){
 
-    class MainCategoryListRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class SubCategoryListRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         //val subCatTitle = itemView.findViewById<TextView>(R.id.tvCatTitle)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainCategoryListRecyclerViewHolder {
+    ): SubCategoryListRecyclerViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.category_list_items, parent, false)
-        return MainCategoryListRecyclerViewHolder(itemView)
+        return SubCategoryListRecyclerViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
         return 6
     }
 
-    override fun onBindViewHolder(holder: MainCategoryListRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SubCategoryListRecyclerViewHolder, position: Int) {
 
         //holder.subCatTitle.setText(childCategoryList[position].title)
 
