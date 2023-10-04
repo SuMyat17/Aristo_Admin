@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.aristo.admin.view.CreateMainCategoryActivity">
+    tools:context="com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:layout_height="50dp"
             android:background="@color/background"
             android:hapticFeedbackEnabled="false"
-            android:src="@drawable/ic_help_center"/>
+            android:src="@drawable/baseline_arrow_back_black_24"/>
 
         <TextView
             android:id="@+id/textView"

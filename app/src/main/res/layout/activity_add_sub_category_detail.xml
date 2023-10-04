@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.aristo.admin.view.AddMainCategoryDetailActivity">
+    tools:context="com.aristo.admin.view.Categories.AddProducts.AddMainCategoryDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_height="50dp"
                     android:background="@color/background"
                     android:hapticFeedbackEnabled="false"
-                    android:src="@drawable/ic_help_center"/>
+                    android:src="@drawable/baseline_arrow_back_black_24"/>
 
                 <TextView
                     android:id="@+id/textView2"
@@ -83,7 +83,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imagePicker"
                 android:layout_width="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
@@ -120,7 +120,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -169,6 +169,7 @@
             </LinearLayout>
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -192,9 +193,11 @@
             </RadioGroup>
 
             <LinearLayout
+                android:id="@+id/price_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -247,7 +250,7 @@
                     android:text="New Arrival Categoryတွင်ထည့်ရန်" />
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/isNewCheckBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="ထည့်မည်" />
@@ -255,6 +258,12 @@
 
             </LinearLayout>
 
+            <ProgressBar
+                android:id="@+id/loading"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/btnCreate"
@@ -262,7 +271,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_button"
                 android:layout_margin="20dp"
+                android:textColor="#FFFFFF"
                 android:text="ပြုလုပ်မည်" />
+
+
 
         </LinearLayout>
     </ScrollView>

@@ -1,9 +1,14 @@
 package com.aristo.admin.model
 
+import android.net.Uri
 import java.io.Serializable
 
 data class Category(
-    val id: Int,
+    var id : String = "",
     val title: String,
-    val subCategories: ArrayList<Category>
-): Serializable
+    val price : Int,
+    var imageURL : String,
+    val isNew : Boolean,
+    var subCategories : ArrayList<Category>
+): Serializable{
+}
