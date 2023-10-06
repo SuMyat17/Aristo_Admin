@@ -1,6 +1,8 @@
 package com.aristo.admin.Manager
 import android.content.Context
 import android.content.SharedPreferences
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.preference.PreferenceManager
 
 object SharedPreferencesManager {
     private const val PREF_NAME = "SharedPreferencesForCategory"
@@ -50,4 +52,22 @@ object SharedPreferencesManager {
         return sharedPreferences.getInt("position", 0)
     }
 
+    fun customPrefs(context: Context, name: String) : SharedPreferences =
+        context.getSharedPreferences(name, Context.MODE_PRIVATE)
+
+    private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
+        val editor = this.edit()
+        operation(editor)
+        editor.apply()
+    }
+
+    fun SharedPreferences.set(key: String, value: String?) {
+        edit {
+            it.putString(key, value)
+        }
+    }
+
+    fun SharedPreferences.get(key: String) : String? {
+        return getString(key, null)
+    }
 }

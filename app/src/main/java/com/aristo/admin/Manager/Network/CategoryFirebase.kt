@@ -6,16 +6,20 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.aristo.admin.Datas.AdminDataHolder
 import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
+import com.aristo.admin.model.Admin
 import com.aristo.admin.model.Category
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import java.net.URI
 
 class CategoryFirebase {
 
@@ -188,12 +192,48 @@ class CategoryFirebase {
             uploadTask.addOnSuccessListener { _ ->
                 // Image uploaded successfully, get the download URL
                 imageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    completionHandler(true, downloadUri.toString()) // Success, pass true and download URL
+                    completionHandler(true, downloadUri.toString()) // Succes, pass true and download URL
                 }
             }.addOnFailureListener { exception ->
                 val errorMessage = exception.message ?: "Failed to upload image"
                 completionHandler(false, errorMessage) // Failure, pass false and the error message
             }
+        }
+
+        fun addAdmin(companyName: String, address: String, phone: String, image: String?, viber: String, fbPage: String, completionHandler: (Boolean, String?) -> Unit) {
+
+            var admin: Admin
+            if (image != null) {
+                admin = Admin(companyName, address, phone, image, viber, fbPage)
+            } else {
+                admin = Admin(companyName, address, phone, null, viber, fbPage)
+            }
+            AdminDataHolder.instance.admin = admin
+
+            database.reference.child(companyName).setValue(admin).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "Successful")
+                } else {
+                    completionHandler(false, it.exception?.message)
+                }
+            }
+        }
+
+        fun getAdmin(companyName: String, completionHandler: (Boolean, Any?) -> Unit) {
+
+            database.reference.child(companyName).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val admin = snapshot.getValue(Admin::class.java)
+                    AdminDataHolder.instance.admin = admin as Admin
+                    completionHandler(true, admin)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("asfdasf", "cancelled")
+                    completionHandler(false, error.message)
+                }
+
+            })
         }
 
     }

@@ -1,9 +1,5 @@
 import androidx.lifecycle.ViewModel
 import com.aristo.admin.model.Category
-import com.aristo.admin.view.dummyData.dummyCategory1
-import com.aristo.admin.view.dummyData.dummyCategory2
-import com.aristo.admin.view.dummyData.dummyCategory3
-import com.aristo.admin.view.dummyData.dummyCategory4
 
 class CategoriesViewModel : ViewModel() {
 
