@@ -6,6 +6,7 @@ class DataListHolder private constructor() {
 
     private val subIndexList: ArrayList<Int> = ArrayList()
     private val subIDList: ArrayList<String> = ArrayList()
+    private val childList: ArrayList<String> = ArrayList()
     fun setSubIndexList(data: Int) {
 
         Log.d("setSubIndexList", "setSubIndexList: $data")
@@ -22,14 +23,24 @@ class DataListHolder private constructor() {
         subIDList.add(data)
     }
 
+    fun getSubIDList(): ArrayList<String> {
+        return subIDList
+    }
+
+    fun setChildPath(data: String) {
+
+        childList.add(data)
+    }
+
+    fun getChildPath(): ArrayList<String> {
+        return childList
+    }
+
     fun deleteAll(){
         subIDList.clear()
         subIndexList.clear()
     }
 
-    fun getSubIDList(): ArrayList<String> {
-        return subIDList
-    }
 
     companion object {
         private var instance: DataListHolder? = null

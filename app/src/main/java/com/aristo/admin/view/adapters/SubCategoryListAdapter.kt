@@ -35,7 +35,7 @@ class SubCategoryListAdapter(private val context: Context, private val subCatego
             val intent = Intent(context, ChildCategoriesActivity:: class.java)
 
             // Put the ArrayList as an extra in the intent
-            intent.putExtra("childCategoriesList", subCategoryList[position].subCategories)
+            //intent.putExtra("childCategoriesList", subCategoryList[position].subCategories)
 
             context.startActivity(intent)
         }

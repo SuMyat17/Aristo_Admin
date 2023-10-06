@@ -40,7 +40,7 @@ class ChildCategoryListAdapter(private val context: Context, private val childCa
 
             if (childCategoryList[position].subCategories.isNotEmpty()){
                 val intent = Intent(context, ChildCategoriesActivity:: class.java)
-                intent.putExtra("childCategoriesList", childCategoryList[position].subCategories)
+                //intent.putExtra("childCategoriesList", childCategoryList[position].subCategories)
                 context.startActivity(intent)
             } else {
                 val intent = Intent(context, ProductDetailActivity:: class.java)

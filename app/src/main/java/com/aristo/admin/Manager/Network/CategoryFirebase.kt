@@ -27,14 +27,11 @@ class CategoryFirebase {
 
         val database = FirebaseDatabase.getInstance()
         val categoriesRef: DatabaseReference = database.getReference("Products")
-        val storageRef = FirebaseStorage.getInstance().reference
-
+        
         fun uploadDataToFirebase(context: Context, category: Category, completionHandler: (Boolean, String?) -> Unit) {
             SharedPreferencesManager.initialize(context)
 
             val categoryId = categoriesRef.push().key
-            val updatedCategoryList = ArrayList(CategoryDataHolder.getInstance().getUpdatedCategoryList())
-            updatedCategoryList.add(category)
 
             SharedPreferencesManager.saveCategoryId(categoryId!!)
 
@@ -53,7 +50,6 @@ class CategoryFirebase {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 completionHandler(true, null) // Success, pass true and no error message
-                                CategoryDataHolder.getInstance().setUpdatedCategoryList(updatedCategoryList)
 
                             } else {
                                 val errorMessage = task.exception?.message ?: "Unknown error occurred"
@@ -76,11 +72,6 @@ class CategoryFirebase {
 
             SharedPreferencesManager.initialize(activity)
 
-            var mainIndex = SharedPreferencesManager.getMainIndex()
-
-            // Set the updated data in DataHolder
-            val originalList = CategoryDataHolder.getInstance().getUpdatedCategoryList()
-
             var categoryId = SharedPreferencesManager.getCategoryId()
 
             if (DataListHolder.getInstance().getSubIDList().isEmpty()){
@@ -97,7 +88,6 @@ class CategoryFirebase {
             val subIndexList = DataListHolder.getInstance().getSubIndexList()
             var baseURL = categoriesRef.child("Categories").child(categoryId!!)
             var referencePath = "subCategories/$subCategoryId/"
-            var childList = CategoryDataHolder.getInstance().getChildCategoryList()
 
             //User selected from sub category index
             if (subIndexList.isNotEmpty()){
@@ -113,24 +103,10 @@ class CategoryFirebase {
                     referencePath += "subCategories/${DataListHolder.getInstance().getSubIDList()[index + 1]}/"
 
                 }
-
-                if (childList.isNotEmpty()){
-                    for (index in 0..<childList.size){
-
-                        addSubcategories(childList[index],0,1, category)
-                    }
-                }
-
-            }
-
-            // First level of sub categories
-            else{
-
-                addSubcategories(originalList[mainIndex],0,1, category)
-
             }
 
             var referenceString = baseURL.child(referencePath).toString()
+
 
             var restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
 
@@ -151,7 +127,6 @@ class CategoryFirebase {
                                 if (DataListHolder.getInstance().getSubIDList().size > 1){
                                     DataListHolder.getInstance().getSubIDList().removeLast()
                                 }
-                                CategoryDataHolder.getInstance().setChildCategory(category)
 
                                 completionHandler(true, null)
 
@@ -168,22 +143,6 @@ class CategoryFirebase {
 
         }
 
-        fun addSubcategories(category: Category, depth: Int, maxDepth: Int,newCategory: Category) {
-
-            //Log.d("updated Category:" , "updated Category 1: ${category} ---- ${CategoryDataHolder.getInstance().getChildCategoryList()}")
-
-            if (depth >= maxDepth) {
-                return
-            }
-
-            category.subCategories.add(newCategory)
-
-            Log.d("updated Category:" , "updated Category: $category")
-
-            addSubcategories(newCategory, depth + 1, maxDepth, newCategory)
-        }
-
-
         fun uploadImageToFirebase(imageUri: Uri, completionHandler: (Boolean, String?) -> Unit) {
             val storageRef = FirebaseStorage.getInstance().reference
             val imageRef = storageRef.child("images/${System.currentTimeMillis()}.jpg")
@@ -198,6 +157,76 @@ class CategoryFirebase {
                 val errorMessage = exception.message ?: "Failed to upload image"
                 completionHandler(false, errorMessage) // Failure, pass false and the error message
             }
+        }
+        fun getMainCategoryData(completionHandler: (Boolean, ArrayList<Category>?) -> Unit) {
+
+            categoriesRef.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val subCategoriesSnapshot = snapshot.child("Categories")
+                    val subCategoriesList: ArrayList<Category> = ArrayList()
+
+                    for (categorySnapshot in subCategoriesSnapshot.children) {
+
+                        val subCategory = categorySnapshot.getValue(Category::class.java)
+                        subCategory?.let {
+                            subCategoriesList.add(it)
+                        }
+
+                    }
+                    completionHandler(true,subCategoriesList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    completionHandler(false,null)
+                }
+
+            })
+        }
+
+        fun getCategoriesDatas(activity: Activity,completionHandler: (Boolean, ArrayList<Category>?) -> Unit){
+
+            SharedPreferencesManager.initialize(activity)
+            var mainCatID = SharedPreferencesManager.getCategoryId()
+            var baseURL = mainCatID?.let {
+                categoriesRef.child("Categories").child(
+                    it
+                )
+            }
+            val subIndexList = DataListHolder.getInstance().getSubIndexList()
+            var referencePath = ""
+
+            for(index in 0..<subIndexList.size){
+
+                referencePath += "subCategories/${com.aristo.admin.Datas.DataListHolder.getInstance().getSubIDList()[index]}/"
+
+            }
+            var referenceString = baseURL?.child(referencePath).toString()
+            var categoryRef = Firebase.database.getReferenceFromUrl(referenceString)
+
+            categoryRef.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val subCategoriesSnapshot = snapshot.child("subCategories")
+                    val subCategoriesList: ArrayList<Category> = ArrayList()
+
+                    for (categorySnapshot in subCategoriesSnapshot.children) {
+
+                        val subCategory = categorySnapshot.getValue(Category::class.java)
+                        subCategory?.let {
+                            subCategoriesList.add(it)
+                        }
+
+                    }
+
+                    completionHandler(true,subCategoriesList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    completionHandler(false,null)
+                }
+
+            })
         }
 
         fun addAdmin(companyName: String, address: String, phone: String, image: String?, viber: String, fbPage: String, completionHandler: (Boolean, String?) -> Unit) {
