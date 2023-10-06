@@ -75,6 +75,13 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/subLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sub_category"
         android:layout_width="match_parent"

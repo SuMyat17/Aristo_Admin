@@ -45,13 +45,13 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoriesRecyclerViewLi
 
         // Sub Categories Recycler View
 //        mSubCategoryAdapter = SubCategoryListAdapter(this, categoriesViewModel.mainCategoryList[0].subCategories)
-        mSubCategoryAdapter = SubCategoryListAdapter(this, categoriesViewModel.dummyDataList[0].subCategories)
-        binding.rvSubCategories.layoutManager = GridLayoutManager(this,2)
-        binding.rvSubCategories.adapter = mSubCategoryAdapter
+//        mSubCategoryAdapter = SubCategoryListAdapter(this, categoriesViewModel.dummyDataList[0].subCategories)
+//        binding.rvSubCategories.layoutManager = GridLayoutManager(this,2)
+//        binding.rvSubCategories.adapter = mSubCategoryAdapter
     }
 
     // Reload Sub Categories Recycler View when select main categories recycler view
     override fun reloadSubCategoriesRecyclerView(index : Int) {
-        binding.rvSubCategories.adapter = SubCategoryListAdapter(this, categoriesViewModel.dummyDataList[index].subCategories)
+        //binding.rvSubCategories.adapter = SubCategoryListAdapter(this, categoriesViewModel.dummyDataList[index].subCategories)
     }
 }

@@ -76,6 +76,13 @@ tools:context="com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryAc
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/mainLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMainCategory"
         android:layout_width="match_parent"

@@ -60,4 +60,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
 
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+
 }

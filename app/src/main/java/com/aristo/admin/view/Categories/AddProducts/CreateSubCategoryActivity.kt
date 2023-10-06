@@ -4,13 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
+import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.databinding.ActivityCreateSubCategoryBinding
 import com.aristo.admin.model.Category
 import com.aristo.admin.view.adapters.SubCategoryListRecyclerViewAdapter
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class CreateSubCategoryActivity : AppCompatActivity(){
 
@@ -18,11 +23,6 @@ class CreateSubCategoryActivity : AppCompatActivity(){
     private val subCategoryAdapter by lazy { SubCategoryListRecyclerViewAdapter(this, ArrayList()) }
     private val subCatLayoutManager by lazy { LinearLayoutManager(this) }
     var mainIndex : Int? = null
-    var subCats : ArrayList<Category>? = ArrayList<Category>()
-
-    //private lateinit var subCategory : Category
-    //var isFromMain : Boolean? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,8 +33,6 @@ class CreateSubCategoryActivity : AppCompatActivity(){
         SharedPreferencesManager.initialize(this)
 
         setRecyclerViewAdapter()
-
-        subCats = intent.getSerializableExtra("subCats") as? ArrayList<Category>
 
         mainIndex = SharedPreferencesManager.getMainIndex()
 
@@ -49,60 +47,22 @@ class CreateSubCategoryActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
 
-        val updatedCategoryList = CategoryDataHolder.getInstance().getUpdatedCategoryList()
+        binding.subLoading.visibility = View.VISIBLE
 
-        if (SharedPreferencesManager.getIsSaveSubCategory() == true) {
-            if (DataListHolder.getInstance().getSubIndexList().isNotEmpty()){
+        CategoryFirebase.getCategoriesDatas(this) { isSuccess, data ->
 
-                    Log.d("On Resume", "onResume: in if condition $mainIndex ${DataListHolder.getInstance().getSubIndexList().size} ${updatedCategoryList[mainIndex!!].subCategories}")
+            binding.subLoading.visibility = View.GONE
 
-                    processSubCategories(updatedCategoryList[mainIndex!!].subCategories)
-            }
+            if (isSuccess) {
+                if (data != null) {
 
-            else{
-
-                    Log.d("On Resume", "onResume: in else condition $mainIndex ${DataListHolder.getInstance().getSubIndexList().size} ${updatedCategoryList[mainIndex!!].subCategories}")
-
-                    subCategoryAdapter.updateData(updatedCategoryList[mainIndex!!].subCategories)
-
-            }
-
-            SharedPreferencesManager.isSaveSubCategory(false)
-        }
-        else{
-
-            if (subCats != null){
-                if (subCats!!.isNotEmpty()){
-                    subCats?.let { subCategoryAdapter.updateData(it) }
+                    subCategoryAdapter.updateData(data)
                 }
-            }
-            else{
-                subCategoryAdapter.updateData(updatedCategoryList[mainIndex!!].subCategories)
-            }
-        }
-
-    }
-
-    fun processSubCategories(subCategories: List<Category>) {
-
-        for (subCategory in subCategories){
-            if (subCategory.subCategories.isNotEmpty()) {
-
-                Log.d("processSubCategories", "processSubCategories: Subcategories found. Processing subcategories... $subCategory")
-                processSubCategories(subCategory.subCategories)
             } else {
-                Log.d("processSubCategories", "processSubCategories: No subcategories found for this category. $subCategory")
-
-                    subCategoryAdapter.updateData(arrayListOf(subCategory))
-                //}
-
+                Toast.makeText(this, "Can't retrieve datas.", Toast.LENGTH_LONG).show()
             }
-
         }
-
-
     }
-
     private fun setRecyclerViewAdapter() {
         // Set up the RecyclerView
         binding.rvSubCategory.layoutManager = subCatLayoutManager
@@ -120,6 +80,10 @@ class CreateSubCategoryActivity : AppCompatActivity(){
         if (DataListHolder.getInstance().getSubIDList().isNotEmpty()){
 
             DataListHolder.getInstance().getSubIDList().removeLast()
+        }
+        if (DataListHolder.getInstance().getChildPath().isNotEmpty()){
+
+            DataListHolder.getInstance().getChildPath().removeLast()
         }
 
     }

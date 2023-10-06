@@ -20,25 +20,12 @@ object SharedPreferencesManager {
         return sharedPreferences.getString("categoryId", null)
     }
 
-    fun isSaveSubCategory(isSave: Boolean) {
+    fun removeCategoryId() {
         val editor = sharedPreferences.edit()
-        editor.putBoolean("isSave", isSave)
+        editor.remove("categoryId")
         editor.apply()
     }
 
-    fun getIsSaveSubCategory(): Boolean? {
-        return sharedPreferences.getBoolean("isSave", false)
-    }
-
-//    fun saveSubCategoryId(subCategoryId: String) {
-//        val editor = sharedPreferences.edit()
-//        editor.putString("subCategoryId", subCategoryId)
-//        editor.apply()
-//    }
-//
-//    fun getSubCategoryId(): String? {
-//        return sharedPreferences.getString("subCategoryId", "")
-//    }
 
     fun saveMainIndex(index: Int) {
         val editor = sharedPreferences.edit()
@@ -48,6 +35,14 @@ object SharedPreferencesManager {
 
     fun getMainIndex(): Int {
         return sharedPreferences.getInt("position", 0)
+    }
+
+    // Function to remove categoryId from SharedPreferences
+    // Function to remove position from SharedPreferences
+    fun removeMainIndex() {
+        val editor = sharedPreferences.edit()
+        editor.remove("position")
+        editor.apply()
     }
 
 }

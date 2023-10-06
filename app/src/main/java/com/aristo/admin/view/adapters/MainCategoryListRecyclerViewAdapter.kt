@@ -5,10 +5,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.databinding.CategoryListItemsBinding
 import com.aristo.admin.model.Category
 import com.aristo.admin.view.Categories.AddProducts.CreateSubCategoryActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.R
 
 class MainCategoryListRecyclerViewAdapter(
     val context: Context,
@@ -21,6 +24,11 @@ class MainCategoryListRecyclerViewAdapter(
         fun bind(category: Category, context: Context, position: Int) {
             binding.tvCatTitle.text = category.title
 
+            Glide.with(context)
+                .load(category.imageURL)
+                .placeholder(com.aristo.admin.R.drawable.ic_placeholder)
+                .into(binding.ivCategory)
+
             // Set click listeners or perform actions here if needed
             itemView.setOnClickListener {
                 // Handle item click
@@ -29,6 +37,9 @@ class MainCategoryListRecyclerViewAdapter(
 
                 SharedPreferencesManager.initialize(context)
                 SharedPreferencesManager.saveMainIndex(position)
+                //SharedPreferencesManager.saveDatabaseChildPath("${category.id}/")
+                //DataListHolder.getInstance().setChildPath("${category.id}/")
+
                 context.startActivity(intent)
 
             }

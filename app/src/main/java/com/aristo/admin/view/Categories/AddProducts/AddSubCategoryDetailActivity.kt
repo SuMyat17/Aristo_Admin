@@ -1,5 +1,6 @@
 package com.aristo.admin.view.Categories.AddProducts
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.Manager.Network.CategoryFirebase
@@ -66,7 +68,7 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 price = binding.etPrice.text.toString().toInt()
             }
 
-            category = Category(title = title, price = price, imageURL = selectedImageUri.toString(), isNew = isNew, subCategories = arrayListOf<Category>())
+            category = Category(title = title, price = price, imageURL = selectedImageUri.toString(), isNew = isNew, subCategories = mapOf())
 
             Log.d("Previous Data", "Previous Data Sub: ${DataListHolder.getInstance().getSubIndexList()}")
 
@@ -75,7 +77,7 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 if (isSuccess) {
                     Toast.makeText(this, "Data added successfully", Toast.LENGTH_LONG).show()
                     binding.loading.visibility = View.GONE
-
+                    //CategoryDataHolder.getInstance().setChildCategory(data as Category)
                     finish()
                 } else {
 
@@ -85,8 +87,6 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 }
 
             }
-            //CategoryFirebase.uploadDataToFirebase(this@AddSubCategoryDetailActivity,category)
-            SharedPreferencesManager.isSaveSubCategory(true)
 
         }
 
