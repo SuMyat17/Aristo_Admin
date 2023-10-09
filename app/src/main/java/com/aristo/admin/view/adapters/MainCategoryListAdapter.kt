@@ -1,24 +1,31 @@
 package com.aristo.admin.view.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aristo.admin.R
+import com.aristo.admin.databinding.ViewHolderMainCategoryBinding
 import com.aristo.admin.model.Category
+import com.bumptech.glide.Glide
 
-class MainCategoryListAdapter(private val context: MainCategoriesRecyclerViewListener, private val mainCategoryList: ArrayList<Category>) : RecyclerView.Adapter<MainCategoryListAdapter.MainCategoryListViewHolder>() {
+class MainCategoryListAdapter(private val context: Context, val listener: MainCategoriesRecyclerViewListener) : RecyclerView.Adapter<MainCategoryListAdapter.MainCategoryListViewHolder>() {
 
     private var selectedPosition = 0
+    private var mainCategoryList = listOf<Category>()
 
-    class MainCategoryListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val mainCatTitle: TextView = itemView.findViewById(R.id.tvCatTitle)
+    class MainCategoryListViewHolder(private var binding: ViewHolderMainCategoryBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(category: Category, context: Context, position: Int) {
+            binding.tvCatTitle.text = category.title
+            Glide.with(context)
+                .load(category.imageURL)
+                .into(binding.imageView)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainCategoryListViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_main_category, parent, false)
-        return MainCategoryListViewHolder(itemView)
+        val binding = ViewHolderMainCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainCategoryListViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -26,7 +33,9 @@ class MainCategoryListAdapter(private val context: MainCategoriesRecyclerViewLis
     }
 
     override fun onBindViewHolder(holder: MainCategoryListViewHolder, position: Int) {
-        holder.mainCatTitle.text = mainCategoryList[position].title
+//        holder.mainCatTitle.text = mainCategoryList[position].title
+
+        holder.bind(mainCategoryList[position], context,position)
 
         if (position == selectedPosition) {
             holder.itemView.setBackgroundResource(R.color.white)
@@ -42,8 +51,13 @@ class MainCategoryListAdapter(private val context: MainCategoriesRecyclerViewLis
 
             notifyItemChanged(selectedPosition)
 
-            context.reloadSubCategoriesRecyclerView(holder.adapterPosition)
+            listener.reloadSubCategoriesRecyclerView(holder.adapterPosition)
         }
+    }
+
+    fun setNewData(categories: List<Category>) {
+        mainCategoryList = categories
+        notifyDataSetChanged()
     }
 }
 

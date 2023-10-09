@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.aristo.admin.Datas.AdminDataHolder
-import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin

@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
+    android:padding="@dimen/margin_medium_2"
     tools:context="com.aristo.admin.view.MainCategoriesActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,8 +48,6 @@
         android:id="@+id/rv_sub_categories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="@dimen/margin_medium" />
 
 </LinearLayout>

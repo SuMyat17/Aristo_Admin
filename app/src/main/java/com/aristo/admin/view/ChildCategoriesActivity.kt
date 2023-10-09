@@ -10,6 +10,7 @@ import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 class ChildCategoriesActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityChildCategoriesBinding
+    private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,13 +26,15 @@ class ChildCategoriesActivity : AppCompatActivity() {
 
     private fun setRecyclerViewAdapter(){
         // Inside your DestinationActivity's onCreate() or wherever you need to access the ArrayList
-        val childCategoriesList: ArrayList<Category>? = intent.getSerializableExtra("childCategoriesList") as? ArrayList<Category>
+        val subCategoriesList: ArrayList<Category>? = intent.getSerializableExtra("childCategoriesList") as? ArrayList<Category>
 
         // Sub Categories Recycler View
-        val subCatLayoutManager = GridLayoutManager(this,2)
-        binding.rvSubCategories.layoutManager = subCatLayoutManager
-        binding.rvSubCategories.adapter = childCategoriesList?.let {
-            ChildCategoryListAdapter(this, it)
+        mSubCategoryAdapter = ChildCategoryListAdapter(this)
+        binding.rvSubCategories.layoutManager = GridLayoutManager(this,2)
+        binding.rvSubCategories.adapter = mSubCategoryAdapter
+        if (subCategoriesList != null) {
+            mSubCategoryAdapter.setNewData(subCategoriesList)
         }
+
     }
 }

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.databinding.CategoryListItemsBinding

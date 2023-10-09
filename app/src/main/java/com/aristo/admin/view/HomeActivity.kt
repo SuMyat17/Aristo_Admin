@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
             Analytics::class.java, Crashes::class.java
         )
 
-
+        // Edit Admin Information
         val companyName = SharedPreferencesManager.customPrefs(this, "Admin").get("company")
 
         if (companyName != null) {
@@ -58,6 +58,20 @@ class HomeActivity : AppCompatActivity() {
                 if (AdminDataHolder.instance.admin!!.image != null) {
                     Glide.with(this).load(AdminDataHolder.instance.admin!!.image).into(binding.ivCompanyLogo)
                 }
+            }
+        }
+
+
+        // Get Recent products data
+        CategoryFirebase.getMainCategoryData { isSuccess, data ->
+
+            if (isSuccess) {
+                if (data != null) {
+
+//                    mainCategoryAdapter.updateData(data)
+                }
+            } else {
+                Toast.makeText(this, "Can't retrieve datas.", Toast.LENGTH_LONG).show()
             }
         }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.Manager.SharedPreferencesManager

@@ -10,7 +10,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="64dp"
         android:background="@color/background">
 
         <LinearLayout
@@ -40,32 +40,46 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_main_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/background"
-            tools:listitem="@layout/view_holder_main_category" />
-
-        <View
-            android:layout_width="0.7dp"
-            android:layout_height="match_parent"
-            android:background="@color/grey"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_sub_categories"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"
-            android:paddingTop="@dimen/margin_medium"
-            tools:listitem="@layout/view_holder_sub_category"
-            android:paddingStart="10dp"/>
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_main_categories"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/background"
+                tools:listitem="@layout/view_holder_main_category" />
+
+            <View
+                android:layout_width="0.7dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sub_categories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                android:paddingEnd="@dimen/margin_medium"
+                android:paddingTop="@dimen/margin_medium"
+                tools:listitem="@layout/view_holder_child_category"
+                android:paddingStart="10dp"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/mainLoading"
+            style="?android:attr/progressBarStyle"
+            android:layout_margin="@dimen/margin_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -38,7 +38,7 @@ class AddMainCategoryDetailActivity : AppCompatActivity() {
             binding.loading.visibility = View.VISIBLE
 
             // Create a new Category object
-            val category = Category(title = title, price = 0, imageURL = selectedImageUri.toString(), isNew = false, subCategories = mapOf())
+            val category = Category(title = title, price = 0, imageURL = selectedImageUri.toString(), new = false, subCategories = mapOf())
 
             // Upload the category data to Firebase
             CategoryFirebase.uploadDataToFirebase(this, category) { isSuccess, errorMessage ->
