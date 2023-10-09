@@ -47,22 +47,4 @@ object SharedPreferencesManager {
         editor.apply()
     }
 
-    fun customPrefs(context: Context, name: String) : SharedPreferences =
-        context.getSharedPreferences(name, Context.MODE_PRIVATE)
-
-    private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
-        val editor = this.edit()
-        operation(editor)
-        editor.apply()
-    }
-
-    fun SharedPreferences.set(key: String, value: String?) {
-        edit {
-            it.putString(key, value)
-        }
-    }
-
-    fun SharedPreferences.get(key: String) : String? {
-        return getString(key, null)
-    }
 }
