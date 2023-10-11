@@ -16,8 +16,17 @@ class ProductDetailActivity : AppCompatActivity() {
         binding = ActivityProductDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpData()
         setUpListeners()
+
+        val productDetail: Category? = intent.getSerializableExtra("product") as? Category
+
+        binding.tvTitle.text = productDetail?.title
+        if (productDetail?.price != 0) {
+            binding.tvPrice.visibility = View.VISIBLE
+            binding.tvPrice.text = "စျေးနှုန်း - ${productDetail?.price.toString()} "
+        }
+        Glide.with(this).load(productDetail?.imageURL).into(binding.ivProduct)
+
     }
 
     private fun setUpListeners() {
@@ -26,16 +35,4 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpData() {
-        val productDetail: Category? = intent.getSerializableExtra("product") as? Category
-
-        binding.tvTitle.text = productDetail?.title
-        if (productDetail?.price != 0) {
-            binding.tvPrice.visibility = View.VISIBLE
-            binding.tvPrice.text = "စျေးနှုန်း - ${productDetail?.price.toString()} "
-        }
-        Glide.with(this)
-            .load(productDetail?.imageURL)
-            .into(binding.ivProduct)
-    }
 }

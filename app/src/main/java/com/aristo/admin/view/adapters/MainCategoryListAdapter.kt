@@ -9,7 +9,7 @@ import com.aristo.admin.databinding.ViewHolderMainCategoryBinding
 import com.aristo.admin.model.Category
 import com.bumptech.glide.Glide
 
-class MainCategoryListAdapter(private val context: Context, val listener: MainCategoriesRecyclerViewListener) : RecyclerView.Adapter<MainCategoryListAdapter.MainCategoryListViewHolder>() {
+class MainCategoryListAdapter(private val context: Context, private val listener: MainCategoriesRecyclerViewListener) : RecyclerView.Adapter<MainCategoryListAdapter.MainCategoryListViewHolder>() {
 
     private var selectedPosition = 0
     private var mainCategoryList = listOf<Category>()
@@ -17,9 +17,7 @@ class MainCategoryListAdapter(private val context: Context, val listener: MainCa
     class MainCategoryListViewHolder(private var binding: ViewHolderMainCategoryBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category, context: Context, position: Int) {
             binding.tvCatTitle.text = category.title
-            Glide.with(context)
-                .load(category.imageURL)
-                .into(binding.imageView)
+            Glide.with(context).load(category.imageURL).into(binding.imageView)
         }
     }
 
@@ -33,8 +31,6 @@ class MainCategoryListAdapter(private val context: Context, val listener: MainCa
     }
 
     override fun onBindViewHolder(holder: MainCategoryListViewHolder, position: Int) {
-//        holder.mainCatTitle.text = mainCategoryList[position].title
-
         holder.bind(mainCategoryList[position], context,position)
 
         if (position == selectedPosition) {
@@ -51,7 +47,7 @@ class MainCategoryListAdapter(private val context: Context, val listener: MainCa
 
             notifyItemChanged(selectedPosition)
 
-            listener.reloadSubCategoriesRecyclerView(holder.adapterPosition)
+            listener.reloadSubCategoriesRecyclerView(position)
         }
     }
 
@@ -59,8 +55,8 @@ class MainCategoryListAdapter(private val context: Context, val listener: MainCa
         mainCategoryList = categories
         notifyDataSetChanged()
     }
-}
 
-interface MainCategoriesRecyclerViewListener {
-    fun reloadSubCategoriesRecyclerView(index : Int)
+    interface MainCategoriesRecyclerViewListener {
+        fun reloadSubCategoriesRecyclerView(index : Int)
+    }
 }

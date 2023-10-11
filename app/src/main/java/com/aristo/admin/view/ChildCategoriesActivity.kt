@@ -26,14 +26,15 @@ class ChildCategoriesActivity : AppCompatActivity() {
 
     private fun setRecyclerViewAdapter(){
         // Inside your DestinationActivity's onCreate() or wherever you need to access the ArrayList
-        val subCategoriesList: ArrayList<Category>? = intent.getSerializableExtra("childCategoriesList") as? ArrayList<Category>
+        val subCategory = intent.getSerializableExtra("childCategoriesList") as Category?
+        binding.tvHeading.text = subCategory?.title
 
         // Sub Categories Recycler View
         mSubCategoryAdapter = ChildCategoryListAdapter(this)
         binding.rvSubCategories.layoutManager = GridLayoutManager(this,2)
         binding.rvSubCategories.adapter = mSubCategoryAdapter
-        if (subCategoriesList != null) {
-            mSubCategoryAdapter.setNewData(subCategoriesList)
+        if (subCategory != null) {
+            mSubCategoryAdapter.setNewData(subCategory.subCategories.values.toList())
         }
 
     }

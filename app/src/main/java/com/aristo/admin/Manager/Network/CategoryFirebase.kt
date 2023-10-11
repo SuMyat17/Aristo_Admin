@@ -228,25 +228,6 @@ class CategoryFirebase {
             })
         }
 
-//        fun addAdmin(companyName: String, address: String, phone: String, image: String?, viber: String, fbPage: String, completionHandler: (Boolean, String?) -> Unit) {
-//
-//            var admin: Admin
-//            if (image != null) {
-//                admin = Admin(companyName, address, phone, image, viber, fbPage)
-//            } else {
-//                admin = Admin(companyName, address, phone, null, viber, fbPage)
-//            }
-//            AdminDataHolder.instance.admin = admin
-//
-//            database.reference.child(companyName).setValue(admin).addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    completionHandler(true, "Successful")
-//                } else {
-//                    completionHandler(false, it.exception?.message)
-//                }
-//            }
-//        }
-
         fun addAdmin(admin: Admin, completionHandler: (Boolean, String?) -> Unit) {
 
             AdminDataHolder.instance.admin = admin
@@ -276,23 +257,6 @@ class CategoryFirebase {
 
             })
         }
-
-//        fun getAdmin(companyName: String, completionHandler: (Boolean, Any?) -> Unit) {
-//
-//            database.reference.child(companyName).addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    val admin = snapshot.getValue(Admin::class.java)
-//                    AdminDataHolder.instance.admin = admin as Admin
-//                    completionHandler(true, admin)
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Log.d("asfdasf", "cancelled")
-//                    completionHandler(false, error.message)
-//                }
-//
-//            })
-//        }
 
     }
 }

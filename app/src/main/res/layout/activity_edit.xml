@@ -45,8 +45,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,23 +97,24 @@
         android:layout_marginEnd="@dimen/margin_medium_3"
         android:orientation="vertical">
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/margin_medium_2"-->
-<!--            android:text="လုပ်ငန်းနာမည်"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="16sp" />-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:text="လုပ်ငန်းနာမည်"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/etCompanyName"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/edit_text_height"-->
-<!--            android:nextFocusForward="@id/etCompanyAddress"-->
-<!--            android:layout_marginTop="@dimen/margin_card_medium_2"-->
-<!--            android:paddingStart="@dimen/margin_medium"-->
-<!--            android:singleLine="true"-->
-<!--            android:background="@drawable/background_edit_text" />-->
+        <EditText
+            android:id="@+id/etCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_text_height"
+            android:nextFocusForward="@id/etCompanyAddress"
+            android:enabled="false"
+            android:layout_marginTop="@dimen/margin_card_medium_2"
+            android:paddingStart="@dimen/margin_medium"
+            android:singleLine="true"
+            android:background="@drawable/background_edit_text" />
 
         <TextView
             android:layout_width="match_parent"
@@ -182,6 +182,24 @@
 
         <EditText
             android:id="@+id/etCompanyFbPage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_card_medium_2"
+            android:nextFocusForward="@id/etCompanyFbPage"
+            android:paddingStart="@dimen/margin_medium"
+            android:singleLine="true"
+            android:background="@drawable/background_edit_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:text="Facebook Page လင့်ခ်"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/etCompanyFbPageLink"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginTop="@dimen/margin_card_medium_2"

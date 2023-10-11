@@ -2,6 +2,7 @@ package com.aristo.admin.view.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +20,16 @@ class ChildCategoryListAdapter(private val context: Context) : RecyclerView.Adap
     class SubCategoryListViewHolder(private var binding: ViewHolderChildCategoryBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category, context: Context, position: Int) {
             binding.tvCatTitle.text = category.title
-            Glide.with(context)
-                .load(category.imageURL)
-                .into(binding.imageView)
-
-//            Log.d("adfsdfas", "${category.subCategories.isEmpty()} ${category.title} ${category.isNew} $position")
+            Glide.with(context).load(category.imageURL).into(binding.imageView)
 
             if (category.subCategories.isEmpty()) {
                 if (category.new) {
                     binding.ivNew.visibility = View.VISIBLE
+                } else {
+                    binding.ivNew.visibility = View.GONE
                 }
+            } else {
+                binding.ivNew.visibility = View.GONE
             }
         }
     }
@@ -50,8 +51,7 @@ class ChildCategoryListAdapter(private val context: Context) : RecyclerView.Adap
 
             if (subCategoryList[position].subCategories.isNotEmpty()){
                 val intent = Intent(context, ChildCategoriesActivity:: class.java)
-                intent.putExtra("childCategoriesList", ArrayList(subCategoryList[position].subCategories.values))
-
+                intent.putExtra("childCategoriesList", subCategoryList[position])
                 context.startActivity(intent)
             } else {
                 val intent = Intent(context, ProductDetailActivity:: class.java)
