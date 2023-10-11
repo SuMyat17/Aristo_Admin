@@ -9,4 +9,5 @@ data class Admin (
     var image: String? = null,
     var viber: String? = null,
     var fbPage: String? = null,
+    var fbPageLink: String? = null,
 ) : Serializable

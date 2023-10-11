@@ -65,7 +65,6 @@
                         android:id="@+id/ivMore"
                         android:layout_width="20dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/margin_small"
                         android:src="@drawable/ic_more"/>
 
                 </LinearLayout>

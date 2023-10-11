@@ -13,10 +13,9 @@ import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.databinding.ActivityMainCategoriesBinding
 import com.aristo.admin.model.Category
 import com.aristo.admin.view.adapters.MainCategoryListAdapter
-import com.aristo.admin.view.adapters.MainCategoriesRecyclerViewListener
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 
-class MainCategoriesActivity : AppCompatActivity(), MainCategoriesRecyclerViewListener {
+class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.MainCategoriesRecyclerViewListener {
 
     private lateinit var binding : ActivityMainCategoriesBinding
 
@@ -32,15 +31,14 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoriesRecyclerViewLi
         setContentView(binding.root)
 
         // Initialize ViewModel
-        categoriesViewModel = ViewModelProvider(this)[CategoriesViewModel::class.java]
-        categoriesViewModel.loadCategories()
+//        categoriesViewModel = ViewModelProvider(this)[CategoriesViewModel::class.java]
+//        categoriesViewModel.loadCategories()
 
         setRecyclerViewAdapter()
 
         binding.ibBack.setOnClickListener {
             finish()
         }
-
 
         // Get Recent products data
         CategoryFirebase.getMainCategoryData { isSuccess, data ->
@@ -50,8 +48,6 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoriesRecyclerViewLi
                     categoryList = data
                     mMainCategoryAdapter.setNewData(data)
                     mSubCategoryAdapter.setNewData(data[0].subCategories.values.toList())
-
-                    Log.d("adfsdfas", "${data[0].subCategories.values.toList()}")
                 }
             } else {
                 Toast.makeText(this, "Can't retrieve data.", Toast.LENGTH_LONG).show()

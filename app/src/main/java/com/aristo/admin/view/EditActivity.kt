@@ -76,6 +76,7 @@ class EditActivity : AppCompatActivity() {
             admin.phone = binding.etCompanyPhone.text.toString()
             admin.viber = binding.etCompanyViberNo.text.toString()
             admin.fbPage = binding.etCompanyFbPage.text.toString()
+            admin.fbPageLink = binding.etCompanyFbPageLink.text.toString()
 
                 if (selectedImageUri != null) {
                     CategoryFirebase.uploadImageToFirebase(selectedImageUri!!) { isSuccessful, imageUrl ->
@@ -112,11 +113,12 @@ class EditActivity : AppCompatActivity() {
 
     private fun setUpData(admin: Admin) {
 
-//            binding.etCompanyName.setText(admin.companyName)
+        binding.etCompanyName.setText(admin.companyName)
         binding.etCompanyAddress.setText(admin.address)
         binding.etCompanyPhone.setText(admin.phone)
         binding.etCompanyViberNo.setText(admin.viber)
         binding.etCompanyFbPage.setText(admin.fbPage)
+        binding.etCompanyFbPageLink.setText(admin.fbPageLink)
 
         if (admin.image != null) {
             selectedImageString = admin.image
