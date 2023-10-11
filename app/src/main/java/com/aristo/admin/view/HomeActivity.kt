@@ -11,7 +11,10 @@ import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.databinding.ActivityHomeBinding
 import com.aristo.admin.model.Admin
 import com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryActivity
+import com.aristo.admin.view.Notification.SendNotificationActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -97,6 +100,10 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.btnHelpCenter.setOnClickListener {
 
+        }
+
+        binding.btnNotification.setOnClickListener {
+            startActivity(Intent(applicationContext, SendNotificationActivity::class.java))
         }
     }
 }
