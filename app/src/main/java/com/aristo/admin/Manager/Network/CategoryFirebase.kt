@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.aristo.admin.Datas.AdminDataHolder
@@ -65,7 +66,7 @@ class CategoryFirebase {
         }
 
 
-        fun updateDataToFirebase(activity: Activity, category : Category, completionHandler: (Boolean, String?) -> Unit){
+        fun updateDataToFirebase(activity: Activity, category : Category, isWithImage : Boolean, completionHandler: (Boolean, String?) -> Unit){
 
             var subCategoryId : String?
 
@@ -105,41 +106,65 @@ class CategoryFirebase {
             }
 
             var referenceString = baseURL.child(referencePath).toString()
-
-
             var restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
 
-            // Upload image to Firebase Storage
-            uploadImageToFirebase(category.imageURL.toUri()) { isSuccess, imageUrl ->
-                if (isSuccess) {
-                    // Image uploaded successfully, set the imageUrl in the category object
-                    if (imageUrl != null) {
-                        category.imageURL = imageUrl
-                    }
+            // Upload data with image
+            if (isWithImage){
+                // Upload image to Firebase Storage
+                uploadImageToFirebase(category.imageURL.toUri()) { isSuccess, imageUrl ->
+                    if (isSuccess) {
+                        // Image uploaded successfully, set the imageUrl in the category object
+                        if (imageUrl != null) {
+                            category.imageURL = imageUrl
+                        }
 
-                    // Store category data in Firebase Realtime Database
-                    restoredReference.setValue(category)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Log.d("Add Successfully", "Data added successfully")
-
-                                if (DataListHolder.getInstance().getSubIDList().size > 1){
-                                    DataListHolder.getInstance().getSubIDList().removeLast()
-                                }
-
-                                completionHandler(true, null)
-
+                        postSubCategoryDatas(category, restoredReference){ isSuccess, message ->
+                            if (isSuccess) {
+                                completionHandler(true,null)
                             } else {
-                                val errorMessage = task.exception?.message ?: "Unknown error occurred"
-                                completionHandler(false, errorMessage)
+                                completionHandler(false, message)
                             }
                         }
-                } else {
-                    Toast.makeText(activity,"Please select one image.",Toast.LENGTH_LONG).show()
-                    completionHandler(false, imageUrl) // Failure, pass false and the error message
+
+                    } else {
+                        Toast.makeText(activity,"Please select one image.",Toast.LENGTH_LONG).show()
+                        completionHandler(false, imageUrl) // Failure, pass false and the error message
+                    }
                 }
             }
 
+            // Upload data with color code
+            else{
+
+                postSubCategoryDatas(category, restoredReference){ isSuccess, message ->
+                    if (isSuccess) {
+                        completionHandler(true,null)
+                    } else {
+                        completionHandler(false, message)
+                    }
+                }
+            }
+
+        }
+
+        fun postSubCategoryDatas(category: Category, restoredReference : DatabaseReference, completionHandler: (Boolean, String?) -> Unit){
+            // Store category data in Firebase Realtime Database
+            restoredReference.setValue(category)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("Add Successfully", "Data added successfully")
+
+                        if (DataListHolder.getInstance().getSubIDList().size > 1){
+                            DataListHolder.getInstance().getSubIDList().removeLast()
+                        }
+                        completionHandler(true, null)
+                    }
+
+                    else {
+                        val errorMessage = task.exception?.message ?: "Unknown error occurred"
+                        completionHandler(false, errorMessage)
+                    }
+                }
         }
 
         fun uploadImageToFirebase(imageUri: Uri, completionHandler: (Boolean, String?) -> Unit) {

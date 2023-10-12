@@ -2,6 +2,8 @@ package com.aristo.admin.view.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aristo.admin.databinding.ViewHolderChildCategoryBinding
 import com.aristo.admin.view.ChildCategoriesActivity
 import com.aristo.admin.model.Category
+import com.aristo.admin.processColorCode
 import com.aristo.admin.view.ProductDetailActivity
 import com.bumptech.glide.Glide
 
@@ -20,7 +23,17 @@ class ChildCategoryListAdapter(private val context: Context) : RecyclerView.Adap
     class SubCategoryListViewHolder(private var binding: ViewHolderChildCategoryBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(category: Category, context: Context, position: Int) {
             binding.tvCatTitle.text = category.title
-            Glide.with(context).load(category.imageURL).into(binding.imageView)
+
+            if (category.colorCode != ""){
+                binding.viewColor.visibility = View.VISIBLE
+                binding.imageView.visibility = View.GONE
+                binding.viewColor.foreground = ColorDrawable(Color.parseColor(processColorCode(category.colorCode)))
+            }
+            else{
+                binding.viewColor.visibility = View.GONE
+                binding.imageView.visibility = View.VISIBLE
+                Glide.with(context).load(category.imageURL).into(binding.imageView)
+            }
 
             if (category.subCategories.isEmpty()) {
                 if (category.new) {

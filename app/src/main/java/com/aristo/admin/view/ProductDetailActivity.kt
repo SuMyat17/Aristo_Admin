@@ -1,10 +1,13 @@
 package com.aristo.admin.view
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.aristo.admin.databinding.ActivityProductDetailBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.processColorCode
 import com.bumptech.glide.Glide
 
 class ProductDetailActivity : AppCompatActivity() {
@@ -25,7 +28,21 @@ class ProductDetailActivity : AppCompatActivity() {
             binding.tvPrice.visibility = View.VISIBLE
             binding.tvPrice.text = "စျေးနှုန်း - ${productDetail?.price.toString()} "
         }
-        Glide.with(this).load(productDetail?.imageURL).into(binding.ivProduct)
+
+        if (productDetail != null) {
+            if (productDetail.colorCode != ""){
+                binding.viewColor.visibility = View.VISIBLE
+                binding.ivProduct.visibility = View.GONE
+
+                binding.viewColor.foreground = ColorDrawable(Color.parseColor(processColorCode(productDetail.colorCode)))
+            }
+            else{
+                binding.viewColor.visibility = View.GONE
+                binding.ivProduct.visibility = View.VISIBLE
+                Glide.with(this).load(productDetail.imageURL).into(binding.ivProduct)
+            }
+        }
+        //.with(this).load(productDetail?.imageURL).into(binding.ivProduct)
 
     }
 

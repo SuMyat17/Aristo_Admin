@@ -51,138 +51,277 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="ဓာတ်ပုံရွေးပါ" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#C01818"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="*" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/imagePicker"
-                android:layout_width="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_placeholder" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="အမျိုးအစားအမည်ကိုရေးပါ" />
-
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#C01818"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="*" />
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/etTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:inputType="text"
-                android:textSize="14sp"
-                android:hint="အမျိုးအစားအမည်ကိုမြန်မာလိုရေးပါ" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
-                android:textSize="12sp"
-                android:text="ဥပမာ - အမျိုးသမီး၀တ်အထည်များ" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:text="စျေးနှုန်း" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-                    android:text="(ရွေးချယ်ခွင့်ရှိသည်)" />
-
-            </LinearLayout>
-
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/showColorRadioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
 
                 <RadioButton
-                    android:id="@+id/rb_shown"
+                    android:id="@+id/rb_addPicture"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="ပြမည်" />
+                    android:checked="true"
+                    android:text="ပုံထည့်မည်" />
 
                 <RadioButton
-                    android:id="@+id/rb_not_shown"
+                    android:id="@+id/rb_addColorCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="မပြပါ" />
+                    android:text="ကာလာထည့်မည်" />
 
             </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/imageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="ဓာတ်ပုံရွေးပါ" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C01818"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imagePicker"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_placeholder" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/colorLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/etColorCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="ကာလာနံပါတ်"
+                    android:inputType="text"
+                    android:maxLength="7"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:text="ဥပမာ - #324521" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="အမျိုးအစားအမည်" />
+
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C01818"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text"
+                    android:textSize="14sp"
+                    android:hint="အမျိုးအစားအမည်ကိုမြန်မာလိုရေးပါ" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:text="ဥပမာ - အမျိုးသမီး၀တ်အထည်များ" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="ရေတွက်ပုံ" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#C01818"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:inputType="text"
+                    android:textSize="14sp"
+                    android:hint="အထည်" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    android:text="ဥပမာ - အထည်၊ အလိပ်၊ အစီး၊ ကွင်း" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:text="စျေးနှုန်း" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+                        android:text="(ရွေးချယ်ခွင့်ရှိသည်)" />
+
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/rb_shown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="ပြမည်" />
+
+                    <RadioButton
+                        android:id="@+id/rb_not_shown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="မပြပါ" />
+
+                </RadioGroup>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/price_linear"
@@ -226,11 +365,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:layout_width="wrap_content"

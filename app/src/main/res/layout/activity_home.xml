@@ -51,7 +51,7 @@
                     android:layout_marginTop="50dp"
                     android:elevation="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_placeholder"
+                    android:src="@drawable/ta_logo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +86,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_margin="@dimen/margin_medium_2"
                             android:src="@drawable/ic_new_product" />
 
@@ -124,15 +124,17 @@
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_margin="@dimen/margin_medium_2"
                             android:src="@drawable/ic_recent_products" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_medium_2"
+                            android:layout_marginStart="@dimen/margin_medium_2"
+                            android:layout_marginEnd="@dimen/margin_medium_2"
+                            android:layout_marginBottom="@dimen/margin_medium_2"
                             android:gravity="center"
-                            android:text="တင်ပြီးထားသောပစ္စည်းများကို
-ကြည့်ရန်"
+                            android:text="တင်ပြီးသောပစ္စည်းများ ကြည့်ရန်"
                             android:textColor="@color/color_accent"
                             android:textStyle="bold" />
 
@@ -165,8 +167,8 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:src="@drawable/ic_send_notification"/>
 
                         <TextView
@@ -200,8 +202,8 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
                             android:src="@drawable/ic_help_center"/>
 
                         <TextView

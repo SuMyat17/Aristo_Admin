@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Aristo Admin</string>
+    <string name="developer">Developerများနှင့်ဆက်သွယ်ရန်</string>
+    <string name="application">Applicationအသုံးပြုနည်း</string>
 </resources>

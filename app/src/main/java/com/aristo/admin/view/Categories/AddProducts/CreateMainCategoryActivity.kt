@@ -33,6 +33,10 @@ class CreateMainCategoryActivity : AppCompatActivity() {
             val intent = Intent(this, AddMainCategoryDetailActivity::class.java)
             startActivity(intent)
         }
+
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -53,6 +57,7 @@ class CreateMainCategoryActivity : AppCompatActivity() {
                 Toast.makeText(this, "Can't retrieve datas.", Toast.LENGTH_LONG).show()
             }
         }
+
     }
 
     private fun setupRecyclerView() {

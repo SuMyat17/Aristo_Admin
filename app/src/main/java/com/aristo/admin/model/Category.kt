@@ -10,6 +10,8 @@ data class Category(
     val price: Int = 0,
     var imageURL: String = "",
     val new: Boolean = false,
+    val colorCode : String = "",
+    val type : String = "",
     //var subCategories: ArrayList<Category> = ArrayList()
     var subCategories: Map<String, Category> = mapOf()
 ): Serializable{

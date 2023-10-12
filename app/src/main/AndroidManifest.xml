@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AristoAdmin"
         tools:targetApi="31">
+        <activity
+            android:name=".view.HelpCenterActivity"
+            android:exported="false" />
 
         <service
             android:name=".FirebaseNotification.FirebaseService"

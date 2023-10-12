@@ -41,6 +41,10 @@ class CreateSubCategoryActivity : AppCompatActivity(){
             startActivity(intent)
 
         }
+
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onResume() {

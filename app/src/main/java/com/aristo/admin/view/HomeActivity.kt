@@ -99,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, MainCategoriesActivity::class.java))
         }
         binding.btnHelpCenter.setOnClickListener {
-
+            startActivity(Intent(applicationContext, HelpCenterActivity::class.java))
         }
 
         binding.btnNotification.setOnClickListener {

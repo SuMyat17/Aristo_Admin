@@ -55,6 +55,10 @@ class AddMainCategoryDetailActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
     }
 
     // Function to handle image picker click
