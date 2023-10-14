@@ -79,6 +79,10 @@ class SendNotificationActivity : AppCompatActivity() {
 
         }
 
+        binding.ibBack.setOnClickListener {
+            finish()
+        }
+
     }
 
     fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
