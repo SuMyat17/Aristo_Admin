@@ -14,7 +14,6 @@ import com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryActivity
 import com.aristo.admin.view.Notification.SendNotificationActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -52,38 +51,6 @@ class HomeActivity : AppCompatActivity() {
             isLoading = false
             binding.progressBar.visibility = View.GONE
         }
-
-
-
-//        // Edit Admin Information
-//        val companyName = SharedPreferencesManager.customPrefs(this, "Admin").get("company")
-//
-//        if (companyName != null) {
-//            if (AdminDataHolder.instance.admin == null ) {
-//                binding.progressBar.visibility = View.VISIBLE
-//
-//                CategoryFirebase.getAdmin(companyName) { isSuccess, result ->
-//                    if (isSuccess) {
-//                        if (result != null) {
-//                            result as Admin
-//                            binding.tvCompanyName.text = result.companyName
-//                            if (result.image != null) {
-//                                Glide.with(this).load(result.image).into(binding.ivCompanyLogo)
-//                            }
-//                        }
-//                    } else {
-//                        Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
-//                    }
-//                    binding.progressBar.visibility = View.GONE
-//                }
-//            } else {
-//                binding.tvCompanyName.text = AdminDataHolder.instance.admin!!.companyName
-//                if (AdminDataHolder.instance.admin!!.image != null) {
-//                    Glide.with(this).load(AdminDataHolder.instance.admin!!.image).into(binding.ivCompanyLogo)
-//                }
-//            }
-//        }
-
 
         binding.btnEdit.setOnClickListener {
             if (isLoading){

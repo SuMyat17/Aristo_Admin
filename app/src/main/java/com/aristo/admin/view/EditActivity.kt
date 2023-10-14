@@ -43,10 +43,6 @@ class EditActivity : AppCompatActivity() {
             galleryImage.launch("image/*")
         }
 
-
-//        companyName = SharedPreferencesManager.customPrefs(this, "Admin").get("company")
-
-
         if (AdminDataHolder.instance.admin == null) {
             CategoryFirebase.getAdmin { isSuccess, admin ->
                 if (isSuccess) {
@@ -54,14 +50,12 @@ class EditActivity : AppCompatActivity() {
                         this.admin = admin as Admin
                         AdminDataHolder.instance.admin = admin
                         setUpData(admin)
-//                        makeCompanyNameUnClickable()
                     }
                 }
             }
         } else if (AdminDataHolder.instance.admin != null) {
             admin = AdminDataHolder.instance.admin!!
             setUpData(admin)
-//            makeCompanyNameUnClickable()
         }
 
 

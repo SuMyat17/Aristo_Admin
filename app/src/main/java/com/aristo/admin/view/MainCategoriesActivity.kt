@@ -1,21 +1,25 @@
 package com.aristo.admin.view
 
 import CategoriesViewModel
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Manager.Network.CategoryFirebase
+import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityMainCategoriesBinding
+import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
 import com.aristo.admin.view.adapters.MainCategoryListAdapter
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.MainCategoriesRecyclerViewListener {
+class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.MainCategoriesRecyclerViewListener, ChildCategoryListAdapter.ChildCategoryListener {
 
     private lateinit var binding : ActivityMainCategoriesBinding
 
@@ -24,6 +28,9 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
 
     private var categoryList: List<Category> = listOf()
+    private var currentPosition = 0
+
+    private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +44,10 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
         setRecyclerViewAdapter()
 
         binding.ibBack.setOnClickListener {
-            finish()
+            onBackPressed()
         }
+
+        CategoryDataHolder.getInstance().index += 1
 
         // Get Recent products data
         CategoryFirebase.getMainCategoryData { isSuccess, data ->
@@ -46,15 +55,19 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
             if (isSuccess) {
                 if (data != null) {
                     categoryList = data
+                    if (categoryListHolder.isEmpty()) {
+                        categoryListHolder.add(categoryList[currentPosition])
+                    } else {
+                        categoryListHolder[0] = categoryList[currentPosition]
+                    }
                     mMainCategoryAdapter.setNewData(data)
-                    mSubCategoryAdapter.setNewData(data[0].subCategories.values.toList())
+                    mSubCategoryAdapter.setNewData(data[currentPosition].subCategories.values.toList())
                 }
             } else {
                 Toast.makeText(this, "Can't retrieve data.", Toast.LENGTH_LONG).show()
             }
             binding.mainLoading.visibility = View.GONE
         }
-
     }
 
     private fun setRecyclerViewAdapter(){
@@ -65,7 +78,7 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
         binding.rvMainCategories.adapter = mMainCategoryAdapter
 
         // Sub Categories Recycler View
-        mSubCategoryAdapter = ChildCategoryListAdapter(this)
+        mSubCategoryAdapter = ChildCategoryListAdapter(this, this, "Main")
         binding.rvSubCategories.layoutManager = GridLayoutManager(this,2)
         binding.rvSubCategories.adapter = mSubCategoryAdapter
     }
@@ -73,5 +86,44 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
     // Reload Sub Categories Recycler View when select main categories recycler view
     override fun reloadSubCategoriesRecyclerView(index : Int) {
         mSubCategoryAdapter.setNewData(categoryList[index].subCategories.values.toList())
+
+        currentPosition = index
+        if (categoryListHolder.isNotEmpty()) {
+            categoryListHolder[0] = categoryList[currentPosition]
+        }
+    }
+
+    override fun onTapMore(category: Category, type: String) {
+        if (type == "Main") {
+            val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
+            val binding = BottomSheetMoreBinding.inflate(layoutInflater)
+            dialog.setContentView(binding.root)
+            dialog.show()
+
+            if (category.new) {
+                binding.cbNew.isChecked = true
+            }
+
+            binding.cbNew.setOnCheckedChangeListener { _, isChecked ->
+                category.new = isChecked
+                CategoryFirebase.updateCategory(category) { _, message ->
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+                dialog.dismiss()
+            }
+
+            binding.btnDelete.setOnClickListener {
+                CategoryFirebase.deleteCategory(category) { _, message ->
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+                dialog.dismiss()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        CategoryDataHolder.getInstance().updatedCategoryList.clear()
+        CategoryDataHolder.getInstance().index = 0
+        super.onBackPressed()
     }
 }

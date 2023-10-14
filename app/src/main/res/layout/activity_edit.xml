@@ -74,17 +74,19 @@
                     android:id="@+id/btnEditPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_medium_2"
+                    android:layout_marginEnd="@dimen/margin_medium_2"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    android:backgroundTint="#FF404040"
+                    android:drawableLeft="@drawable/outline_photo_camera_white_24"
+                    android:paddingStart="@dimen/margin_medium_2"
                     android:paddingTop="@dimen/margin_medium"
                     android:paddingBottom="@dimen/margin_medium"
-                    android:paddingStart="@dimen/margin_medium_2"
-                    android:layout_alignParentBottom="true"
-                    android:drawableLeft="@drawable/outline_photo_camera_white_24"
-                    android:layout_margin="@dimen/margin_medium_2"
-                    android:layout_marginStart="@dimen/margin_large"
-                    android:backgroundTint="#FF404040"
-                    android:textAllCaps="false"
                     android:text="Edit "
-                    android:textColor="@color/white"/>
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 

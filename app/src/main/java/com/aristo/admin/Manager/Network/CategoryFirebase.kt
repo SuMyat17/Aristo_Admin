@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.aristo.admin.Datas.AdminDataHolder
+import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin
@@ -27,6 +27,7 @@ class CategoryFirebase {
 
         val database = FirebaseDatabase.getInstance()
         val categoriesRef: DatabaseReference = database.getReference("Products")
+        var referencePathUpDateData = "Products/Categories/"
         
         fun uploadDataToFirebase(context: Context, category: Category, completionHandler: (Boolean, String?) -> Unit) {
             SharedPreferencesManager.initialize(context)
@@ -283,5 +284,44 @@ class CategoryFirebase {
             })
         }
 
+        fun updateCategory(category: Category, completionHandler: (Boolean, String?) -> Unit) {
+            referencePathUpDateData = "Products/Categories/"
+
+            CategoryDataHolder.getInstance().updatedCategoryList.forEach {
+                referencePathUpDateData += "${it.id}/subCategories/"
+            }
+            referencePathUpDateData += category.id
+
+            val referenceString = database.reference.child(referencePathUpDateData).toString()
+
+            val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+            restoredReference.setValue(category).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "updated")
+                } else {
+                    completionHandler(false, it.exception?.message)
+                }
+            }
+        }
+
+        fun deleteCategory(category: Category, completionHandler: (Boolean, String?) -> Unit) {
+            referencePathUpDateData = "Products/Categories/"
+
+            CategoryDataHolder.getInstance().updatedCategoryList.forEach {
+                referencePathUpDateData += "${it.id}/subCategories/"
+            }
+            referencePathUpDateData += category.id
+
+            val referenceString = database.reference.child(referencePathUpDateData).toString()
+
+            val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+            restoredReference.removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "deleted")
+                } else {
+                    completionHandler(false, it.exception?.message)
+                }
+            }
+        }
     }
 }

@@ -4,7 +4,8 @@ import com.aristo.admin.model.Category
 
 class CategoryDataHolder private constructor() {
 
-    private val updatedCategoryList: ArrayList<Category> = ArrayList()
+    val updatedCategoryList: ArrayList<Category> = ArrayList()
+    var index: Int = 0
     private val childCategoryList : ArrayList<Category> = ArrayList()
 
 
