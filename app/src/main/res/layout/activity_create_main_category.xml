@@ -89,6 +89,6 @@ tools:context="com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryAc
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        tools:listitem="@layout/category_list_items"/>
+        tools:listitem="@layout/main_category_list_items"/>
 
 </LinearLayout>

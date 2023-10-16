@@ -31,29 +31,10 @@ class AddMainCategoryDetailActivity : AppCompatActivity() {
     // Function to handle create button click
     private fun setupButtonClick() {
         binding.btnCreate.setOnClickListener {
-            // Get the title from the EditText
-            val title = binding.etTitle.text.toString()
 
             // show loading progress
             binding.loading.visibility = View.VISIBLE
-
-            // Create a new Category object
-            val category = Category(title = title, price = 0, imageURL = selectedImageUri.toString(), new = false, subCategories = mapOf())
-
-            // Upload the category data to Firebase
-            CategoryFirebase.uploadDataToFirebase(this, category) { isSuccess, errorMessage ->
-                if (isSuccess) {
-                    Toast.makeText(this, "Data added successfully", Toast.LENGTH_LONG).show()
-                    binding.loading.visibility = View.GONE
-
-                    finish()
-                } else {
-
-                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
-                    binding.loading.visibility = View.GONE
-
-                }
-            }
+            checkToUpload()
         }
 
         binding.ibBack.setOnClickListener {
@@ -63,30 +44,61 @@ class AddMainCategoryDetailActivity : AppCompatActivity() {
 
     // Function to handle image picker click
     private fun setupImagePicker() {
-        // Registering activity result for image selection
+        // Set selected image url
         val galleryImage = registerForActivityResult(
-            ActivityResultContracts.GetContent(),
+            ActivityResultContracts. GetContent(),
             ActivityResultCallback { uri ->
-                // Handling the selected image URI
-                handleSelectedImage(uri)
+
+                if (uri != null) {
+                    selectedImageUri = uri
+                    binding.imagePicker.setImageURI(uri)
+                }
             })
 
-        // Setting up click listener for the image picker button
+        // When select image from gallery
         binding.imagePicker.setOnClickListener {
-            // Launching the image picker
             galleryImage.launch("image/*")
         }
     }
 
-    // Function to handle the selected image URI
-    private fun handleSelectedImage(uri: Uri?) {
-        if (uri != null) {
-            // Saving the selected image URI
-            selectedImageUri = uri
+    fun checkToUpload(){
 
-            // Setting the selected image URI to the ImageView
-            binding.imagePicker.setImageURI(uri)
+        // Check edit text are empty or not
+        if (binding.etTitle.text.isNotEmpty() &&
+            selectedImageUri != null){
 
+            // Upload data to firebase
+            uploadData()
+
+        }
+        else{
+            showToast("အမျိုးအစားအမည်၊ ပစ္စည်ှးဓာတ်ပုံ တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+        }
+
+    }
+
+    fun showToast(title : String){
+        binding.loading.visibility = View.GONE
+        Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+    }
+
+    fun uploadData(){
+        // Create a new Category object
+        val category = Category(title = binding.etTitle.text.toString(), price = 0, imageURL = selectedImageUri.toString(), new = false, subCategories = mapOf())
+
+        // Upload the category data to Firebase
+        CategoryFirebase.uploadDataToFirebase(this, category) { isSuccess, errorMessage ->
+            if (isSuccess) {
+                Toast.makeText(this, "Data added successfully", Toast.LENGTH_LONG).show()
+                binding.loading.visibility = View.GONE
+
+                finish()
+            } else {
+
+                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                binding.loading.visibility = View.GONE
+
+            }
         }
     }
 

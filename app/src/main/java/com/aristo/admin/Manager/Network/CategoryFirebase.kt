@@ -58,7 +58,7 @@ class CategoryFirebase {
                             }
                         }
                 } else {
-                    Toast.makeText(context,"Please select one image.",Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context,"Please select one image.",Toast.LENGTH_LONG).show()
                     completionHandler(false, imageUrl) // Failure, pass false and the error message
                 }
             }
@@ -320,6 +320,21 @@ class CategoryFirebase {
                     completionHandler(true, "deleted")
                 } else {
                     completionHandler(false, it.exception?.message)
+                }
+            }
+        }
+
+        fun deleteMainCategory(mainCatID : String, completionHandler: (Boolean, String?) -> Unit) {
+            referencePathUpDateData = "Products/Categories/$mainCatID"
+
+            val referenceString = database.reference.child(referencePathUpDateData).toString()
+
+            val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+            restoredReference.removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "Deleted")
+                } else {
+                    completionHandler(false, "Failed")
                 }
             }
         }
