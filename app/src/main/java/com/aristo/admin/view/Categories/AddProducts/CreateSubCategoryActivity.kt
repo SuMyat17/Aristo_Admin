@@ -43,6 +43,7 @@ class CreateSubCategoryActivity : AppCompatActivity(){
         }
 
         binding.ibBack.setOnClickListener {
+            removeIndex()
             finish()
         }
     }
@@ -76,6 +77,10 @@ class CreateSubCategoryActivity : AppCompatActivity(){
     override fun onBackPressed() {
         super.onBackPressed()
 
+        removeIndex()
+    }
+
+    fun removeIndex(){
         if (DataListHolder.getInstance().getSubIndexList().isNotEmpty()){
 
             DataListHolder.getInstance().getSubIndexList().removeLast()
