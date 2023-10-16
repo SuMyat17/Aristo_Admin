@@ -32,8 +32,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/viewColor"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/margin_card_medium"
                     app:cardElevation="0dp">
 
