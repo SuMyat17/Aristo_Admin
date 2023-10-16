@@ -174,6 +174,8 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
             if (binding.etType.text.isNotEmpty() &&
                 binding.etTitle.text.isNotEmpty() && selectedImageUri != null) {
 
+                colorCode = ""
+
                 // Upload data to firebase
                 uploadData()
             }
