@@ -10,6 +10,7 @@ data class Category(
     var new: Boolean = false,
     val colorCode : String = "",
     val type : String = "",
+    val timeStamp : Long = System.currentTimeMillis(),
     //var subCategories: ArrayList<Category> = ArrayList()
     var subCategories: Map<String, Category> = mapOf()
 ): Serializable{
