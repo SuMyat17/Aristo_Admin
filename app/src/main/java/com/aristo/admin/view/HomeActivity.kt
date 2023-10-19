@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.btnEdit.setOnClickListener {
             if (isLoading){
-                Toast.makeText(this, "Loading, Please wait", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Loading, Please wait...", Toast.LENGTH_SHORT).show()
             } else {
                 startActivity(Intent(applicationContext, EditActivity::class.java))
             }

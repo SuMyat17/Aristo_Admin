@@ -72,7 +72,7 @@ class EditActivity : AppCompatActivity() {
             admin.fbPage = binding.etCompanyFbPage.text.toString()
             admin.fbPageLink = binding.etCompanyFbPageLink.text.toString()
 
-                if (selectedImageUri != null) {
+            if (selectedImageUri != null) {
                     CategoryFirebase.uploadImageToFirebase(selectedImageUri!!) { isSuccessful, imageUrl ->
 
                         if (isSuccessful) {
