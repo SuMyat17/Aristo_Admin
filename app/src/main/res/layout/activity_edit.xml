@@ -67,7 +67,7 @@
                     android:id="@+id/ivCompanyLogo"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:src="@drawable/ic_placeholder"
+                    android:src="@drawable/ta_logo"
                     android:scaleType="centerCrop"/>
 
                 <Button
@@ -80,6 +80,7 @@
                     android:layout_marginEnd="@dimen/margin_medium_2"
                     android:layout_marginBottom="@dimen/margin_medium_2"
                     android:backgroundTint="#FF404040"
+                    android:visibility="gone"
                     android:drawableLeft="@drawable/outline_photo_camera_white_24"
                     android:paddingStart="@dimen/margin_medium_2"
                     android:paddingTop="@dimen/margin_medium"

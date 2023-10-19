@@ -8,46 +8,40 @@
     android:background="@color/background"
     tools:context="com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingStart="@dimen/margin_medium_3"
+        android:paddingEnd="@dimen/margin_medium_3"
+        android:background="@color/background">
 
-        <ImageButton
-            android:id="@+id/ib_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@color/background"
-            android:hapticFeedbackEnabled="false"
-            android:src="@drawable/baseline_arrow_back_black_24"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ပစ္စည်းခွဲထပ်ထည့်ရန်"
-            android:textColor="@color/black"
-            android:layout_marginLeft="15dp"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/background"
+                android:layout_marginStart="-12dp"
+                android:src="@drawable/baseline_arrow_back_black_24"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:text="ပစ္စည်းခွဲထပ်ထည့်ရန်"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/grey"/>
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/createSubCategory"
