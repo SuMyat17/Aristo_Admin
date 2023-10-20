@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,8 @@ class ChildCategoryListAdapter(private val context: Context, private val listene
                 binding.viewColor.visibility = View.VISIBLE
                 binding.imageView.visibility = View.GONE
                 binding.progressBar.visibility = View.GONE
+
+                Log.d("Color bind", "Color bind: ${processColorCode(category.colorCode)}")
                 binding.viewColor.foreground = ColorDrawable(Color.parseColor(processColorCode(category.colorCode)))
             }
             else{

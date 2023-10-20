@@ -97,8 +97,12 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 price = binding.etPrice.text.toString().toInt()
             }
 
-            if (binding.etColorCode.text.toString().isNotEmpty()) {
+            if (binding.etColorCode.text.toString().isNotEmpty() ) {
                 colorCode = binding.etColorCode.text.toString()
+
+                if (!colorCode.startsWith("#")){
+                    colorCode = "#$colorCode"
+                }
             }
 
             if (binding.etType.text.toString().isNotEmpty()) {
@@ -161,8 +165,15 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 binding.etTitle.text.isNotEmpty() &&
                 binding.etColorCode.text.isNotEmpty()){
 
-                // Upload data to firebase
-                uploadData()
+                Log.d("Color Code", "Color Code: ${binding.etColorCode.text.count()}")
+
+                if (binding.etColorCode.text.count() in 6..7){
+                    // Upload data to firebase
+                    uploadData()
+                }
+                else{
+                    showToast("Color code will be 6 characters.")
+                }
 
             }
             else{
