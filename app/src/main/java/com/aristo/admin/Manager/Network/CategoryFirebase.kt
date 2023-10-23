@@ -12,7 +12,6 @@ import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewProduct
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -340,7 +339,7 @@ class CategoryFirebase {
             }
         }
 
-            fun addNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
+            fun addNewProduct(newProduct: Category, completionHandler: (Boolean, String?) -> Unit) {
 
                 referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
 
@@ -356,7 +355,7 @@ class CategoryFirebase {
                 }
             }
 
-        fun removeNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
+        fun removeNewProduct(newProduct: Category, completionHandler: (Boolean, String?) -> Unit) {
 
             referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
 
@@ -371,5 +370,32 @@ class CategoryFirebase {
                 }
             }
         }
+
+
+        fun getNewProducts(completionHandler: (Boolean, ArrayList<Category>?) -> Unit) {
+
+            categoriesRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val categoriesSnapshot = snapshot.child("NewProducts")
+                    val newProductList: ArrayList<Category> = ArrayList()
+
+                    for (categorySnapshot in categoriesSnapshot.children) {
+
+                        val newProducts = categorySnapshot.getValue(Category::class.java)
+                        newProducts?.let {
+                            newProductList.add(it)
+                        }
+                    }
+                    completionHandler(true, newProductList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    completionHandler(false, null)
+                }
+
+            })
+        }
+
     }
 }

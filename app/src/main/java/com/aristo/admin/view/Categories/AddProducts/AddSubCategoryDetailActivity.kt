@@ -16,7 +16,6 @@ import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityAddSubCategoryDetailBinding
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewProduct
 
 class AddSubCategoryDetailActivity : AppCompatActivity(){
 
@@ -29,6 +28,8 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
     var colorCode = ""
     var type = ""
     var isWithImage = true
+    private var selectedCategory : Category? = null
+    private var isFound = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,8 +38,8 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
 
         SharedPreferencesManager.initialize(this)
 
-
         setup()
+        binding.rbNotShown.isChecked = true
 
         // Show Price or not
         binding.radioGroup.setOnCheckedChangeListener(
@@ -155,12 +156,9 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
 
         }
 
-//        if (isNew) {
-//            val newProduct = NewProduct(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type)
-//
-//            CategoryFirebase.addNewProduct(newProduct) { _, _ -> }
-//
-//        }
+        if (isNew) {
+            CategoryFirebase.addNewProduct(category) { _,_ -> }
+        }
     }
 
     fun checkToUpload(){
@@ -209,7 +207,5 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
         binding.loading.visibility = View.GONE
         Toast.makeText(this, title, Toast.LENGTH_LONG).show()
     }
-
-
 
 }

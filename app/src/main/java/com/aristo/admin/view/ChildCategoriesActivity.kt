@@ -2,7 +2,6 @@ package com.aristo.admin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aristo.admin.Datas.CategoryDataHolder
@@ -11,7 +10,6 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityChildCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewProduct
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -20,14 +18,9 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     private lateinit var binding : ActivityChildCategoriesBinding
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
     private var categoryList: List<Category> = listOf()
-    private var newItemList: ArrayList<Category> = arrayListOf()
     private var subCategory: Category? = null
-    private var pathList: ArrayList<Category> = arrayListOf()
-    private var pathIndex: Int = 0
-
     private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
     private var isFound = false
-    private var isFoundLast = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +87,7 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     }
 
     override fun onTapMore(category: Category, type: String) {
-        val newProduct = NewProduct(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type)
+        val newProduct = Category(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type, subCategories = category.subCategories)
 
         if (type == "Child") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
@@ -115,11 +108,9 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
                 }
 
                 if (isChecked) {
-                    if (category.subCategories.isEmpty()) {
                         CategoryFirebase.addNewProduct(newProduct) { _, message ->
                             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                         }
-                    }
                 } else {
                     CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()

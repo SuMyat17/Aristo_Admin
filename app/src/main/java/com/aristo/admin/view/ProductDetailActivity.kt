@@ -42,7 +42,6 @@ class ProductDetailActivity : AppCompatActivity() {
                 Glide.with(this).load(productDetail.imageURL).into(binding.ivProduct)
             }
         }
-        //.with(this).load(productDetail?.imageURL).into(binding.ivProduct)
 
     }
 
