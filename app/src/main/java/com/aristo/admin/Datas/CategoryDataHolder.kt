@@ -6,7 +6,6 @@ class CategoryDataHolder private constructor() {
 
     val updatedCategoryList: ArrayList<Category> = ArrayList()
     var index: Int = 0
-    private val childCategoryList : ArrayList<Category> = ArrayList()
 
 
     companion object {

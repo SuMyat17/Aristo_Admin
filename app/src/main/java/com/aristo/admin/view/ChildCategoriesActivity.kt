@@ -11,6 +11,7 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityChildCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewProduct
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -18,10 +19,15 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
 
     private lateinit var binding : ActivityChildCategoriesBinding
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
+    private var categoryList: List<Category> = listOf()
+    private var newItemList: ArrayList<Category> = arrayListOf()
     private var subCategory: Category? = null
+    private var pathList: ArrayList<Category> = arrayListOf()
+    private var pathIndex: Int = 0
 
     private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
     private var isFound = false
+    private var isFoundLast = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +49,10 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
         }
 
         CategoryFirebase.getMainCategoryData { isSuccess, data ->
+            data?.let{categoryList = it}
             data?.forEach { mainCategory ->
                 if(!isFound) {
-                    findCategoryWithEmptySubcategories(mainCategory, subCategory)
+                    findSelectedCategory(mainCategory, subCategory)
                 } else {
                     subCategory?.let {
                         mSubCategoryAdapter.setNewData(it.subCategories.values.toList())
@@ -59,14 +66,14 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
         }
     }
 
-    private fun findCategoryWithEmptySubcategories(rootCategory: Category, currentCategory: Category?) {
+    private fun findSelectedCategory(rootCategory: Category, currentCategory: Category?) {
         if (rootCategory.id == currentCategory?.id) {
             isFound = true
             subCategory = rootCategory
         }
 
         for (subCategory in rootCategory.subCategories.values) {
-            findCategoryWithEmptySubcategories(subCategory, currentCategory)
+            findSelectedCategory(subCategory, currentCategory)
         }
     }
 
@@ -87,6 +94,8 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     }
 
     override fun onTapMore(category: Category, type: String) {
+        val newProduct = NewProduct(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type)
+
         if (type == "Child") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
             val binding = BottomSheetMoreBinding.inflate(layoutInflater)
@@ -97,16 +106,33 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
                 binding.cbNew.isChecked = true
             }
 
+
             binding.cbNew.setOnCheckedChangeListener { _, isChecked ->
                 category.new = isChecked
-                CategoryFirebase.updateCategory(category) { _, message ->
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+                CategoryFirebase.updateCategory(category, CategoryDataHolder.getInstance().updatedCategoryList) { _, message ->
+//                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+
+                if (isChecked) {
+                    if (category.subCategories.isEmpty()) {
+                        CategoryFirebase.addNewProduct(newProduct) { _, message ->
+                            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                } else {
+                    CategoryFirebase.removeNewProduct(newProduct) { _, message ->
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    }
                 }
                 dialog.dismiss()
             }
 
             binding.btnDelete.setOnClickListener {
                 CategoryFirebase.deleteCategory(category) { _, message ->
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+                CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                 }
                 dialog.dismiss()

@@ -12,6 +12,7 @@ import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewProduct
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -284,10 +285,10 @@ class CategoryFirebase {
             })
         }
 
-        fun updateCategory(category: Category, completionHandler: (Boolean, String?) -> Unit) {
+        fun updateCategory(category: Category, pathList: ArrayList<Category> , completionHandler: (Boolean, String?) -> Unit) {
             referencePathUpDateData = "Products/Categories/"
 
-            CategoryDataHolder.getInstance().updatedCategoryList.forEach {
+            pathList.forEach {
                 referencePathUpDateData += "${it.id}/subCategories/"
             }
             referencePathUpDateData += category.id
@@ -335,6 +336,38 @@ class CategoryFirebase {
                     completionHandler(true, "Deleted")
                 } else {
                     completionHandler(false, "Failed")
+                }
+            }
+        }
+
+            fun addNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
+
+                referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
+
+                val referenceString = database.reference.child(referencePathUpDateData).toString()
+
+                val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+                restoredReference.setValue(newProduct).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        completionHandler(true, "successs")
+                    } else {
+                        completionHandler(false, it.exception?.message)
+                    }
+                }
+            }
+
+        fun removeNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
+
+            referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
+
+            val referenceString = database.reference.child(referencePathUpDateData).toString()
+
+            val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+            restoredReference.removeValue().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "removed")
+                } else {
+                    completionHandler(false, it.exception?.message)
                 }
             }
         }

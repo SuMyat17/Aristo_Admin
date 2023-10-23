@@ -1,7 +1,6 @@
 package com.aristo.admin.view
 
 import CategoriesViewModel
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +14,7 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityMainCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewProduct
 import com.aristo.admin.view.adapters.MainCategoryListAdapter
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,7 +23,6 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
 
     private lateinit var binding : ActivityMainCategoriesBinding
 
-    private lateinit var categoriesViewModel: CategoriesViewModel
     private lateinit var mMainCategoryAdapter: MainCategoryListAdapter
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
 
@@ -94,6 +93,9 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
     }
 
     override fun onTapMore(category: Category, type: String) {
+
+        val newProduct = NewProduct(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type)
+
         if (type == "Main") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
             val binding = BottomSheetMoreBinding.inflate(layoutInflater)
@@ -106,14 +108,31 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
 
             binding.cbNew.setOnCheckedChangeListener { _, isChecked ->
                 category.new = isChecked
-                CategoryFirebase.updateCategory(category) { _, message ->
-                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+                CategoryFirebase.updateCategory(category, CategoryDataHolder.getInstance().updatedCategoryList) { _, message ->
+//                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                 }
+
+                if (isChecked) {
+                    if (category.subCategories.isEmpty()) {
+                        CategoryFirebase.addNewProduct(newProduct) { _, message ->
+                            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                } else {
+                    CategoryFirebase.removeNewProduct(newProduct) { _, message ->
+                        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    }
+                }
+
                 dialog.dismiss()
             }
 
             binding.btnDelete.setOnClickListener {
                 CategoryFirebase.deleteCategory(category) { _, message ->
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+                CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                 }
                 dialog.dismiss()
@@ -126,4 +145,53 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
         CategoryDataHolder.getInstance().index = 0
         super.onBackPressed()
     }
+
+
+//    private fun findLastNewCategoryList(rootCategory: Category) {
+//        if (rootCategory.subCategories.isEmpty()) {
+//            if (rootCategory.new) {
+//                newItemList.add(rootCategory)
+//            }
+//        }
+//        for (subCategory in rootCategory.subCategories.values) {
+//            findLastNewCategoryList(subCategory)
+//        }
+//    }
+//
+//    private fun findLastNewItemPath(rootCategory: Category, currentCategory: Category?) {
+//
+//        if (!isFoundLast) {
+//            if (rootCategory.subCategories.isEmpty()) {
+//                if (rootCategory.id == currentCategory?.id) {
+//                    isFoundLast = true
+//                    CategoryDataHolder.getInstance().lastCategoryPath = pathList
+//                } else {
+//                    pathIndex--
+//                    pathList.removeLast()
+//                }
+//            }
+//        }
+//
+//        for ((index, subCategory) in rootCategory.subCategories.values.withIndex()) {
+//
+//            if (!isFoundLast) {
+//
+//                if (pathList.size == pathIndex) {
+//                    pathList.add(subCategory)
+//                } else if (pathList.size == pathIndex + 1) {
+//                    pathList[pathIndex] = subCategory
+//                }
+//
+//                pathIndex++
+//
+//                var str = ""
+//                pathList.forEach {
+//                    str += "${it.title} "
+//                }
+//                Log.d("adssfafsfaasfdsfa", "$str \n")
+//
+//                findLastNewItemPath(subCategory, currentCategory)
+//            }
+//        }
+//    }
 }

@@ -16,6 +16,7 @@ import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityAddSubCategoryDetailBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewProduct
 
 class AddSubCategoryDetailActivity : AppCompatActivity(){
 
@@ -153,6 +154,13 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
             }
 
         }
+
+//        if (isNew) {
+//            val newProduct = NewProduct(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type)
+//
+//            CategoryFirebase.addNewProduct(newProduct) { _, _ -> }
+//
+//        }
     }
 
     fun checkToUpload(){
