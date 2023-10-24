@@ -11,10 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aristo.admin.Datas.CategoryDataHolder
+import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.R
 import com.aristo.admin.databinding.ViewHolderChildCategoryBinding
 import com.aristo.admin.view.ChildCategoriesActivity
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewCategory
 import com.aristo.admin.processColorCode
 import com.aristo.admin.view.ProductDetailActivity
 import com.bumptech.glide.Glide
@@ -64,15 +66,32 @@ class ChildCategoryListAdapter(private val context: Context, private val listene
                     .into(binding.imageView)
             }
 
-//            if (category.subCategories.isEmpty()) {
-                if (category.new) {
-                    binding.ivNew.visibility = View.VISIBLE
-                } else {
-                    binding.ivNew.visibility = View.GONE
+
+            CategoryFirebase.getNewProducts { success, data ->
+                if (success) {
+                    if (data != null) {
+                        for (it in data) {
+                            if (category.id == it.id) {
+                                binding.ivNew.visibility = View.VISIBLE
+                                break
+                            } else {
+                                binding.ivNew.visibility = View.GONE
+                            }
+
+                        }
+                    }
                 }
-//            } else {
-//                binding.ivNew.visibility = View.GONE
-//            }
+            }
+
+////            if (category.subCategories.isEmpty()) {
+//                if (category.new) {
+//                    binding.ivNew.visibility = View.VISIBLE
+//                } else {
+//                    binding.ivNew.visibility = View.GONE
+//                }
+////            } else {
+////                binding.ivNew.visibility = View.GONE
+////            }
 
             binding.ivMore.setOnClickListener {
                 listener.onTapMore(category, type)

@@ -2,6 +2,7 @@ package com.aristo.admin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aristo.admin.Datas.CategoryDataHolder
@@ -10,6 +11,7 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityChildCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewCategory
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -18,6 +20,7 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     private lateinit var binding : ActivityChildCategoriesBinding
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
     private var categoryList: List<Category> = listOf()
+    private var newItemsList: List<NewCategory> = listOf()
     private var subCategory: Category? = null
     private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
     private var isFound = false
@@ -39,6 +42,10 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
             } else if (categoryListHolder.count() == CategoryDataHolder.getInstance().index-1) {
                 categoryListHolder.add(it)
             }
+        }
+
+        CategoryFirebase.getNewProducts { isSuccess, data ->
+            data?.let{newItemsList = it}
         }
 
         CategoryFirebase.getMainCategoryData { isSuccess, data ->
@@ -87,46 +94,61 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     }
 
     override fun onTapMore(category: Category, type: String) {
-        val newProduct = Category(id = category.id, title = category.title, price = category.price, imageURL = category.imageURL, new = category.new, colorCode = category.colorCode, type = category.type, subCategories = category.subCategories)
+
+        val newProduct = NewCategory(id = category.id)
 
         if (type == "Child") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
-            val binding = BottomSheetMoreBinding.inflate(layoutInflater)
-            dialog.setContentView(binding.root)
+            val dialogBinding = BottomSheetMoreBinding.inflate(layoutInflater)
+            dialog.setContentView(dialogBinding.root)
             dialog.show()
 
-            if (category.new) {
-                binding.cbNew.isChecked = true
+//            if (category.new) {
+//                dialogBinding.cbNew.isChecked = true
+//            }
+
+            newItemsList.forEach {
+                if (category.id == it.id) {
+                    dialogBinding.cbNew.isChecked = true
+                }
             }
 
-
-            binding.cbNew.setOnCheckedChangeListener { _, isChecked ->
+            dialogBinding.cbNew.setOnCheckedChangeListener { _, isChecked ->
                 category.new = isChecked
+                dialogBinding.progressBar.visibility = View.VISIBLE
+                dialogBinding.llViews.visibility = View.INVISIBLE
 
-                CategoryFirebase.updateCategory(category, CategoryDataHolder.getInstance().updatedCategoryList) { _, message ->
-//                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-                }
+//                CategoryFirebase.updateCategory(category, CategoryDataHolder.getInstance().updatedCategoryList) { _, message -> }
 
                 if (isChecked) {
                         CategoryFirebase.addNewProduct(newProduct) { _, message ->
                             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+                            dialogBinding.progressBar.visibility = View.GONE
+                            dialogBinding.llViews.visibility = View.VISIBLE
+                            dialog.dismiss()
                         }
                 } else {
                     CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+                        dialogBinding.progressBar.visibility = View.GONE
+                        dialogBinding.llViews.visibility = View.VISIBLE
+                        dialog.dismiss()
                     }
                 }
-                dialog.dismiss()
             }
 
-            binding.btnDelete.setOnClickListener {
+            dialogBinding.btnDelete.setOnClickListener {
+
                 CategoryFirebase.deleteCategory(category) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                 }
                 CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+                    dialog.dismiss()
                 }
-                dialog.dismiss()
             }
         }
     }

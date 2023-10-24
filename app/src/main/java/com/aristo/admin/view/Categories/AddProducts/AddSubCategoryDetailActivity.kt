@@ -16,6 +16,7 @@ import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityAddSubCategoryDetailBinding
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.NewCategory
 
 class AddSubCategoryDetailActivity : AppCompatActivity(){
 
@@ -164,7 +165,9 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
         }
 
         if (isNew) {
-            CategoryFirebase.addNewProduct(category) { _,_ -> }
+
+            val newProduct = NewCategory(id = category.id)
+            CategoryFirebase.addNewProduct(newProduct) { _,_ -> }
         }
     }
 
