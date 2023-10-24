@@ -21,6 +21,8 @@ class SubCategoryListRecyclerViewAdapter (val context: Context,
 
         fun bind(category: Category, context: Context, position: Int) {
 
+            SharedPreferencesManager.initialize(context)
+
             binding.tvCatTitle.text = category.title
 
             Glide.with(context)
@@ -30,6 +32,13 @@ class SubCategoryListRecyclerViewAdapter (val context: Context,
 
             // Set click listeners or perform actions here if needed
             itemView.setOnClickListener {
+
+                if (category.type != ""){
+                    DataListHolder.getInstance().setIsType(true)
+                }
+                else{
+                    DataListHolder.getInstance().setIsType(false)
+                }
 
                 val intent = Intent(context, CreateSubCategoryActivity::class.java)
 
