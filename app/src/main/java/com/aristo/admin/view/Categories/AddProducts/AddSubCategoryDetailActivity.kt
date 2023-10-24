@@ -34,8 +34,17 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
         binding = ActivityAddSubCategoryDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        SharedPreferencesManager.initialize(this)
-
+        if (DataListHolder.getInstance().getIsType().isNotEmpty()){
+            if (DataListHolder.getInstance().getIsType().last() == true){
+                binding.countingLayout.visibility = View.GONE
+            }
+            else{
+                binding.countingLayout.visibility = View.VISIBLE
+            }
+        }
+        else{
+            binding.countingLayout.visibility = View.VISIBLE
+        }
 
         setup()
 
@@ -157,41 +166,94 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
 
     fun checkToUpload(){
 
+        var isTypeShow : Boolean
+
+        if (DataListHolder.getInstance().getIsType().isNotEmpty()){
+            if (DataListHolder.getInstance().getIsType().last() == true){
+
+                // There is counting type
+                isTypeShow = false
+            }
+            else{
+
+                // There is no counting type
+                isTypeShow = true
+            }
+        }
+        else{
+
+            // There is no counting type
+            isTypeShow = true
+        }
+
         // When user select color code
         if (!isWithImage){
 
-            // Check edit text are empty or not
-            if (binding.etType.text.isNotEmpty() &&
-                binding.etTitle.text.isNotEmpty() &&
-                binding.etColorCode.text.isNotEmpty()){
+            if (isTypeShow){
+                if (binding.etType.text.isNotEmpty() &&
+                    binding.etTitle.text.isNotEmpty() &&
+                    binding.etColorCode.text.isNotEmpty()){
 
-                Log.d("Color Code", "Color Code: ${binding.etColorCode.text.count()}")
+                    Log.d("Color Code", "Color Code: ${binding.etColorCode.text.count()}")
 
-                if (binding.etColorCode.text.count() in 6..7){
+                    if (binding.etColorCode.text.count() in 6..7){
+                        // Upload data to firebase
+                        uploadData()
+                    }
+                    else{
+                        showToast("Color code will be 6 characters.")
+                    }
+                }
+                else{
+                    showToast("ကာလာနံပါတ်၊ အမျိုးအစားအမည်၊ ရေတွက်ပုံ တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+                }
+            }
+            else{
+                if (binding.etTitle.text.isNotEmpty() &&
+                    binding.etColorCode.text.isNotEmpty()){
+
+                    Log.d("Color Code", "Color Code: ${binding.etColorCode.text.count()}")
+
+                    if (binding.etColorCode.text.count() in 6..7){
+                        // Upload data to firebase
+                        uploadData()
+                    }
+                    else{
+                        showToast("Color code will be 6 characters.")
+                    }
+                }
+                else{
+                    showToast("ကာလာနံပါတ်၊ အမျိုးအစားအမည် တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+                }
+            }
+        }
+        else{
+            if (isTypeShow){
+                if (binding.etType.text.isNotEmpty() &&
+                    binding.etTitle.text.isNotEmpty() && selectedImageUri != null) {
+
+                    colorCode = ""
                     // Upload data to firebase
                     uploadData()
                 }
                 else{
-                    showToast("Color code will be 6 characters.")
+
+                    showToast("ပစ္စည်ှးဓာတ်ပုံံ၊ အမျိုးအစားအမည်၊ ရေတွက်ပုံ တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+
                 }
-
             }
             else{
-                showToast("ကာလာနံပါတ်၊ အမျိုးအစားအမည်၊ အထည် တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
-            }
-        }
-        else{
-            // Check edit text are empty or not
-            if (binding.etType.text.isNotEmpty() &&
-                binding.etTitle.text.isNotEmpty() && selectedImageUri != null) {
+                if (binding.etTitle.text.isNotEmpty() && selectedImageUri != null) {
 
-                colorCode = ""
+                    colorCode = ""
+                    // Upload data to firebase
+                    uploadData()
+                }
+                else{
 
-                // Upload data to firebase
-                uploadData()
-            }
-            else{
-                showToast("ပစ္စည်ှးဓာတ်ပုံ၊ အမျိုးအစားအမည်၊ အထည် တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+                    showToast("ပစ္စည်ှးဓာတ်ပုံ၊ အမျိုးအစားအမည် တို့ကိုပြည့်စုံအောင်ဖြည့်ပေးပါ။")
+
+                }
             }
         }
 

@@ -93,6 +93,10 @@ class CreateSubCategoryActivity : AppCompatActivity(){
 
             DataListHolder.getInstance().getChildPath().removeLast()
         }
+        if (DataListHolder.getInstance().getIsType().isNotEmpty()){
+
+            DataListHolder.getInstance().getIsType().removeLast()
+        }
     }
 
 }
