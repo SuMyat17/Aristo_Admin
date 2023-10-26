@@ -1,12 +1,17 @@
 package com.aristo.admin.view.Notification
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.widget.addTextChangedListener
 import com.aristo.admin.Manager.Network.CategoryFirebase
+import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivitySendNotificationBinding
 import com.aristo.admin.model.Category
 import com.google.firebase.database.DataSnapshot
@@ -20,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Callback
+import kotlin.math.log
 
 const val TOPIC = "/topics/myTopic2"
 class SendNotificationActivity : AppCompatActivity() {
@@ -27,6 +33,7 @@ class SendNotificationActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySendNotificationBinding
     var userTokenLists : ArrayList<String> = arrayListOf()
     private var notificationsSentCount = 0
+    var selectedImageUri: Uri? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,14 +59,41 @@ class SendNotificationActivity : AppCompatActivity() {
 
             binding.progressBar.visibility = View.VISIBLE
 
-            for (token in userTokenLists){
+            selectedImageUri?.let { it1 ->
+                CategoryFirebase.uploadImageToFirebase(it1) { isSuccess, imageUrl ->
+                    if (isSuccess) {
+                        // Image uploaded successfully, set the imageUrl in the category object
+                        if (imageUrl != null) {
+                            selectedImageUri = imageUrl.toUri()
 
-                if(message.isNotEmpty()) {
-                    PushNotification(
-                        NotificationData(title, message),
-                        token
-                    ).also {
-                        sendNotification(it)
+                            for (token in userTokenLists){
+                                if(message.isNotEmpty()) {
+
+                                    PushNotification(
+                                        NotificationData(title,selectedImageUri.toString(), message),
+                                        token
+                                    ).also {
+
+                                        sendNotification(it)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (selectedImageUri == null){
+                for (token in userTokenLists){
+                    if(message.isNotEmpty()) {
+
+                        PushNotification(
+                            NotificationData(title,selectedImageUri.toString(), message),
+                            token
+                        ).also {
+
+                            sendNotification(it)
+                        }
                     }
                 }
             }
@@ -81,6 +115,22 @@ class SendNotificationActivity : AppCompatActivity() {
 
         binding.ibBack.setOnClickListener {
             finish()
+        }
+
+        // Set selected image url
+        val galleryImage = registerForActivityResult(
+            ActivityResultContracts. GetContent(),
+            ActivityResultCallback { uri ->
+
+                if (uri != null) {
+                    selectedImageUri = uri
+                    binding.ivProduct.setImageURI(uri)
+                }
+            })
+
+        // When select image from gallery
+        binding.ivProduct.setOnClickListener {
+            galleryImage.launch("image/*")
         }
 
     }
@@ -122,6 +172,9 @@ class SendNotificationActivity : AppCompatActivity() {
                     showErrorToast("Notification sent successfully.")
                     binding.tvNotiMessage.setText("")
                     binding.btnSend.isEnabled = false
+                    selectedImageUri = null
+                    binding.ivProduct.setImageURI(null)
+                    binding.ivProduct.setImageResource(R.drawable.ic_placeholder)
                     binding.btnSend.alpha = 0.5f
                 }
             }
