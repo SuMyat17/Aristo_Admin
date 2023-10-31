@@ -66,8 +66,8 @@
                 <ImageView
                     android:id="@+id/ivCompanyLogo"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:src="@drawable/ta_logo"
+                    android:layout_height="260dp"
+                    android:src="@drawable/logo"
                     android:scaleType="centerCrop"/>
 
                 <Button
@@ -112,11 +112,12 @@
             android:id="@+id/etCompanyName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_text_height"
-            android:enabled="false"
             android:layout_marginTop="@dimen/margin_card_medium_2"
+            android:background="@drawable/background_edit_text"
+            android:enabled="false"
+            android:text="@string/company_name"
             android:paddingStart="@dimen/margin_medium"
-            android:singleLine="true"
-            android:background="@drawable/background_edit_text" />
+            android:singleLine="true" />
 
         <TextView
             android:layout_width="match_parent"

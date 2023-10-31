@@ -13,7 +13,10 @@ import com.aristo.admin.model.Admin
 import com.aristo.admin.view.Categories.AddProducts.CreateMainCategoryActivity
 import com.aristo.admin.view.Notification.SendNotificationActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -36,21 +39,7 @@ class HomeActivity : AppCompatActivity() {
         // Edit Admin Information
         binding.progressBar.visibility = View.VISIBLE
 
-        CategoryFirebase.getAdmin { isSuccess, result ->
-            if (isSuccess) {
-                if (result != null) {
-                    result as Admin
-                    binding.tvCompanyName.text = result.companyName
-                    if (result.image != null) {
-                        Glide.with(this).load(result.image).into(binding.ivCompanyLogo)
-                    }
-                }
-            } else {
-                Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
-            }
-            isLoading = false
-            binding.progressBar.visibility = View.GONE
-        }
+        checkUserSignin()
 
         binding.btnEdit.setOnClickListener {
             if (isLoading){
@@ -71,6 +60,85 @@ class HomeActivity : AppCompatActivity() {
 
         binding.btnNotification.setOnClickListener {
             startActivity(Intent(applicationContext, SendNotificationActivity::class.java))
+        }
+    }
+
+    fun signIn(completionHandler: (success: Boolean) -> Unit){
+        var auth: FirebaseAuth = Firebase.auth
+
+        var email = "tunlinaung.tla7@gmail.com"
+        var password = "Superst@r7"
+
+        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
+
+            if (task.isSuccessful){
+
+                completionHandler(true)
+
+            }
+            else{
+                //Toast.makeText(context,"${task.exception!!.localizedMessage.toString()}",Toast.LENGTH_LONG).show()
+
+                completionHandler(false)
+            }
+
+        }
+    }
+
+    fun checkUserSignin(){
+
+        var auth: FirebaseAuth = Firebase.auth
+
+        if (auth.currentUser == null){
+
+            var email = "tunlinaung.tla7@gmail.com"
+            var password = "Superst@r7"
+
+            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
+
+                if (task.isSuccessful){
+
+                    fetchAdminData()
+
+                }
+                else{
+                    Toast.makeText(this,"${task.exception!!.localizedMessage.toString()}",Toast.LENGTH_LONG).show()
+
+                }
+
+            }
+        }
+        else{
+            fetchAdminData()
+        }
+    }
+
+    fun fetchAdminData(){
+        CategoryFirebase.getAdmin { isSuccess, result ->
+            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+
+            if (isSuccess) {
+
+                if (result != null) {
+
+                    Toast.makeText(this, "is Success $isSuccess $result", Toast.LENGTH_LONG).show()
+                    result as Admin
+                    binding.tvCompanyName.text = result.companyName
+                    if (result.image != null) {
+                        Glide.with(this).load(result.image).into(binding.ivCompanyLogo)
+                    }
+                }
+                else{
+
+                    Toast.makeText(this, "Failed  $result", Toast.LENGTH_LONG).show()
+                }
+
+            } else {
+                Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
+            }
+
+            isLoading = false
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

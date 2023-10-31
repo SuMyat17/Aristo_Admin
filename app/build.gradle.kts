@@ -76,5 +76,7 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
+    // Firebase Auth
+    implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
 
 }

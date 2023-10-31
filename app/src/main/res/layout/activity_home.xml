@@ -36,12 +36,23 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:gravity="center"
-                        android:text="TA Textile"
+                        android:text="@string/company_name"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.3"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_information_bg_style"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivCompanyLogo"
@@ -51,7 +62,7 @@
                     android:layout_marginTop="50dp"
                     android:elevation="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ta_logo"
+                    android:src="@drawable/logo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +110,7 @@
                             android:layout_marginBottom="@dimen/margin_medium_2"
                             android:gravity="center"
                             android:text="ပစ္စည်းအသစ်ပြုလုပ်ရန်"
-                            android:textColor="@color/color_accent"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -135,7 +146,7 @@
                             android:layout_marginBottom="@dimen/margin_medium_2"
                             android:gravity="center"
                             android:text="တင်ပြီးသောပစ္စည်းများ ကြည့်ရန်"
-                            android:textColor="@color/color_accent"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -179,7 +190,7 @@
                             android:layout_marginTop="@dimen/margin_medium_2"
                             android:gravity="center"
                             android:text="အသိပေးချက်ပေးပို့ရန်"
-                            android:textColor="@color/color_accent"
+                            android:textColor="@color/black"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -212,7 +223,7 @@
                             android:layout_margin="@dimen/margin_medium_2"
                             android:gravity="center"
                             android:text="အကူအညီပေးဌာန"
-                            android:textColor="@color/color_accent"
+                            android:textColor="@color/black"
                             android:textStyle="bold"/>
 
                     </LinearLayout>
@@ -230,7 +241,7 @@
                 android:layout_marginEnd="@dimen/margin_medium_3"
                 android:padding="@dimen/margin_card_medium"
                 android:text="အချက်အလက်ပြင်ဆင်ရန်"
-                android:textColor="@color/color_accent"
+                android:textColor="@color/black"
                 android:background="@drawable/background_border_accent_color"/>
 
             <ProgressBar
