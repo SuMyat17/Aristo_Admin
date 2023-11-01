@@ -19,8 +19,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var binding : ActivityEditBinding
 
     private var selectedImageUri: Uri? = null
-    private var selectedImageString: String? = null
-    private lateinit var admin: Admin
+    private var admin: Admin = Admin()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +60,7 @@ class EditActivity : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener {
 
-//            if (binding.etCompanyAddress.text.toString() != "" && binding.etCompanyPhone.text.toString() != "") {
-
-                binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
 
             admin.companyName = admin.companyName
             admin.address = binding.etCompanyAddress.text.toString()
@@ -72,52 +69,53 @@ class EditActivity : AppCompatActivity() {
             admin.fbPage = binding.etCompanyFbPage.text.toString()
             admin.fbPageLink = binding.etCompanyFbPageLink.text.toString()
 
-            if (selectedImageUri != null) {
-                    CategoryFirebase.uploadImageToFirebase(selectedImageUri!!) { isSuccessful, imageUrl ->
-
-                        if (isSuccessful) {
-                            admin.image = imageUrl
-                            CategoryFirebase.addAdmin(admin) { isSuccess, message ->
-                                Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-                                binding.progressBar.visibility = View.GONE
-                                finish()
-                            }
-                        }
-                    }
-                }
-                else if (selectedImageString != null){
-                    admin.image = selectedImageString
-                    CategoryFirebase.addAdmin(admin) { isSuccess, message ->
-                        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-                        binding.progressBar.visibility = View.GONE
-                        finish()
-                    }
-                } else {
-                    admin.image = null
-                    CategoryFirebase.addAdmin(admin) { isSuccess, message ->
-                        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-                        binding.progressBar.visibility = View.GONE
-                        finish()
-                    }
-                }
+            CategoryFirebase.addAdmin(admin) { isSuccess, message ->
+                binding.progressBar.visibility = View.GONE
+                finish()
             }
+
+//            if (selectedImageUri != null) {
+//                    CategoryFirebase.uploadImageToFirebase(selectedImageUri!!) { isSuccessful, imageUrl ->
+//
+//                        if (isSuccessful) {
+//                            admin.image = imageUrl
+//                            CategoryFirebase.addAdmin(admin) { isSuccess, message ->
+//                                Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+//                                binding.progressBar.visibility = View.GONE
+//                                finish()
+//                            }
+//                        }
+//                    }
+//                }
+//                else if (selectedImageString != null){
+//                    admin.image = selectedImageString
+//                    CategoryFirebase.addAdmin(admin) { isSuccess, message ->
+////                        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+//                        binding.progressBar.visibility = View.GONE
+//                        finish()
+//                    }
+//                } else {
+//                    admin.image = null
+//                    CategoryFirebase.addAdmin(admin) { isSuccess, message ->
+////                        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+//                        binding.progressBar.visibility = View.GONE
+//                        finish()
+//                    }
+//                }
+//            }
 //        }
+        }
 
     }
 
     private fun setUpData(admin: Admin) {
 
-        binding.etCompanyName.setText(admin.companyName)
         binding.etCompanyAddress.setText(admin.address)
         binding.etCompanyPhone.setText(admin.phone)
         binding.etCompanyViberNo.setText(admin.viber)
         binding.etCompanyFbPage.setText(admin.fbPage)
         binding.etCompanyFbPageLink.setText(admin.fbPageLink)
 
-        if (admin.image != null) {
-            selectedImageString = admin.image
-            Glide.with(this).load(admin.image).into(binding.ivCompanyLogo)
-        }
     }
 
 }

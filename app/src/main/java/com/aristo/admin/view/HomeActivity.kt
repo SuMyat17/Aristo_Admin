@@ -93,28 +93,15 @@ class HomeActivity : AppCompatActivity() {
 
     fun fetchAdminData(){
         CategoryFirebase.getAdmin { isSuccess, result ->
-            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
 
             if (isSuccess) {
-
                 if (result != null) {
-
-                    Toast.makeText(this, "is Success $isSuccess $result", Toast.LENGTH_LONG).show()
                     result as Admin
-                    binding.tvCompanyName.text = result.companyName
-                    if (result.image != null) {
-                        Glide.with(this).load(result.image).into(binding.ivCompanyLogo)
-                    }
+                    AdminDataHolder.instance.admin = result
                 }
-                else{
-
-                    Toast.makeText(this, "Failed  $result", Toast.LENGTH_LONG).show()
-                }
-
             } else {
-                Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
+//                Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_LONG).show()
             }
-
             isLoading = false
             binding.progressBar.visibility = View.GONE
         }

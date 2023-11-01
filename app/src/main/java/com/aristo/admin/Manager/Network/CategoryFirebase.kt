@@ -270,19 +270,15 @@ class CategoryFirebase {
 
         fun getAdmin(completionHandler: (Boolean, Any?) -> Unit) {
 
-            Log.d("HERERE", "getAdmin: HERER")
-
             database.reference.child("companyInfo").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val admin = snapshot.getValue(Admin::class.java)
-                    if (admin != null){
+                    if (snapshot.exists()) {
+                        val admin = snapshot.getValue(Admin::class.java)
                         AdminDataHolder.instance.admin = admin as Admin
                         completionHandler(true, admin)
+                    } else {
+                        completionHandler(false, null)
                     }
-                    else{
-                        completionHandler(false, admin)
-                    }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
