@@ -56,13 +56,19 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
             if (isSuccess) {
                 if (data != null) {
                     categoryList = data
-                    if (categoryListHolder.isEmpty()) {
-                        categoryListHolder.add(categoryList[currentPosition])
-                    } else {
-                        categoryListHolder[0] = categoryList[currentPosition]
+
+                    if (categoryList.isNotEmpty()){
+                        if (categoryListHolder.isEmpty()) {
+                            categoryListHolder.add(categoryList[currentPosition])
+                        } else {
+                            categoryListHolder[0] = categoryList[currentPosition]
+                        }
+
+                        mMainCategoryAdapter.setNewData(data)
+                        mSubCategoryAdapter.setNewData(data[currentPosition].subCategories.values.toList())
                     }
-                    mMainCategoryAdapter.setNewData(data)
-                    mSubCategoryAdapter.setNewData(data[currentPosition].subCategories.values.toList())
+
+
                 }
             } else {
                 Toast.makeText(this, "Can't retrieve data.", Toast.LENGTH_LONG).show()

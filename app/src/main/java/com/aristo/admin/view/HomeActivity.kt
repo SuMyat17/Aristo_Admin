@@ -63,28 +63,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun signIn(completionHandler: (success: Boolean) -> Unit){
-        var auth: FirebaseAuth = Firebase.auth
-
-        var email = "tunlinaung.tla7@gmail.com"
-        var password = "Superst@r7"
-
-        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-
-            if (task.isSuccessful){
-
-                completionHandler(true)
-
-            }
-            else{
-                //Toast.makeText(context,"${task.exception!!.localizedMessage.toString()}",Toast.LENGTH_LONG).show()
-
-                completionHandler(false)
-            }
-
-        }
-    }
-
     fun checkUserSignin(){
 
         var auth: FirebaseAuth = Firebase.auth
