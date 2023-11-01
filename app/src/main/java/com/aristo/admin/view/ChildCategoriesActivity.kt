@@ -103,6 +103,10 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
             dialog.setContentView(dialogBinding.root)
             dialog.show()
 
+            dialogBinding.btnEdit.setOnClickListener {
+
+            }
+
 //            if (category.new) {
 //                dialogBinding.cbNew.isChecked = true
 //            }

@@ -282,7 +282,6 @@ class CategoryFirebase {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.d("asfdasf", "cancelled")
                     completionHandler(false, error.message)
                 }
 
@@ -344,7 +343,7 @@ class CategoryFirebase {
             }
         }
 
-            fun addNewProduct(newProduct: NewCategory, completionHandler: (Boolean, String?) -> Unit) {
+        fun addNewProduct(newProduct: NewCategory, completionHandler: (Boolean, String?) -> Unit) {
 
                 referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
 

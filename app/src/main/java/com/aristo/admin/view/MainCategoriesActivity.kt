@@ -112,6 +112,10 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
             dialog.setContentView(dialogBinding.root)
             dialog.show()
 
+            dialogBinding.btnEdit.setOnClickListener {
+
+            }
+
 //            if (category.new) {
 //                dialogBinding.cbNew.isChecked = true
 //            }

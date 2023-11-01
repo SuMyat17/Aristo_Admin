@@ -24,8 +24,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -33,6 +31,7 @@
                     android:id="@+id/viewColor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_medium_2"
                     app:cardCornerRadius="@dimen/margin_card_medium"
                     app:cardElevation="0dp">
 
@@ -45,7 +44,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/margin_medium_2">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -84,6 +84,7 @@
                         android:paddingTop="15dp"
                         android:text="တမူးလက်ရေး"
                         android:layout_marginStart="@dimen/margin_small"
+                        android:paddingBottom="@dimen/margin_medium_2"
                         android:layout_weight="1"
                         android:maxLines="2"
                         android:textSize="12sp"
@@ -91,8 +92,11 @@
 
                     <ImageView
                         android:id="@+id/ivMore"
-                        android:layout_width="20dp"
+                        android:layout_width="wrap_content"
                         android:paddingTop="15dp"
+                        android:paddingStart="@dimen/margin_medium_2"
+                        android:paddingEnd="@dimen/margin_medium_3"
+                        android:paddingBottom="@dimen/margin_medium_2"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_more"/>
 
