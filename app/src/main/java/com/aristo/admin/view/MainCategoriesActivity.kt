@@ -1,5 +1,6 @@
 package com.aristo.admin.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.aristo.admin.databinding.ActivityMainCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
 import com.aristo.admin.model.NewCategory
+import com.aristo.admin.view.Categories.AddProducts.AddSubCategoryDetailActivity
 import com.aristo.admin.view.adapters.MainCategoryListAdapter
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -113,12 +115,11 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
             dialog.show()
 
             dialogBinding.btnEdit.setOnClickListener {
-
+                val intent = Intent(this, AddSubCategoryDetailActivity::class.java)
+                intent.putExtra("Edit", category)
+                startActivity(intent)
+                dialog.dismiss()
             }
-
-//            if (category.new) {
-//                dialogBinding.cbNew.isChecked = true
-//            }
 
             newItemsList.forEach {
                 if (category.id == it.id) {
@@ -155,6 +156,7 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
             dialogBinding.btnDelete.setOnClickListener {
                 CategoryFirebase.deleteCategory(category) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
                 }
                 CategoryFirebase.removeNewProduct(newProduct) { _, message ->
                     Toast.makeText(this, message, Toast.LENGTH_LONG).show()

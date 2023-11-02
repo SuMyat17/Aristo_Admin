@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.databinding.CategoryListItemsBinding
@@ -35,6 +36,7 @@ class SubCategoryListRecyclerViewAdapter (val context: Context,
 
                 if (category.type != ""){
                     DataListHolder.getInstance().setIsType(true)
+                    CategoryDataHolder.getInstance().countingType = category.type
                 }
                 else{
                     DataListHolder.getInstance().setIsType(false)

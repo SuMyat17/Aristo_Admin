@@ -5,7 +5,7 @@ import java.io.Serializable
 data class Category(
     var id: String = "",
     val title: String ="",
-    val price: Int = 0,
+    var price: Int = 0,
     var imageURL: String = "",
     var new: Boolean = false,
     val colorCode : String = "",

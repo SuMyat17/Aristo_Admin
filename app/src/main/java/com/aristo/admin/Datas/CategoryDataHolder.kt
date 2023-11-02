@@ -7,6 +7,8 @@ class CategoryDataHolder private constructor() {
     val updatedCategoryList: ArrayList<Category> = ArrayList()
     var index: Int = 0
 
+    var countingType: String = ""
+
 
     companion object {
         private var instance: CategoryDataHolder? = null

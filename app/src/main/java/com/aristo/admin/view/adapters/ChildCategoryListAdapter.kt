@@ -83,16 +83,6 @@ class ChildCategoryListAdapter(private val context: Context, private val listene
                 }
             }
 
-////            if (category.subCategories.isEmpty()) {
-//                if (category.new) {
-//                    binding.ivNew.visibility = View.VISIBLE
-//                } else {
-//                    binding.ivNew.visibility = View.GONE
-//                }
-////            } else {
-////                binding.ivNew.visibility = View.GONE
-////            }
-
             binding.ivMore.setOnClickListener {
                 listener.onTapMore(category, type)
             }
