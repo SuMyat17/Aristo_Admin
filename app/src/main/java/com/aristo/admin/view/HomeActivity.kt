@@ -61,6 +61,10 @@ class HomeActivity : AppCompatActivity() {
         binding.btnNotification.setOnClickListener {
             startActivity(Intent(applicationContext, SendNotificationActivity::class.java))
         }
+
+        binding.btnAddPoint.setOnClickListener {
+            startActivity(Intent(applicationContext, UserIdListActivity::class.java))
+        }
     }
 
     fun checkUserSignin(){

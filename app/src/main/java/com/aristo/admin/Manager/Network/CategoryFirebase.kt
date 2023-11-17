@@ -12,6 +12,7 @@ import com.aristo.admin.Datas.DataListHolder
 import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin
 import com.aristo.admin.model.Category
+import com.aristo.admin.model.User
 import com.aristo.admin.model.NewCategory
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -408,6 +409,52 @@ class CategoryFirebase {
                 }
 
             })
+        }
+
+        fun getCustomerIdList(completionHandler: (Boolean, ArrayList<User>?) -> Unit) {
+            val database = FirebaseDatabase.getInstance()
+            val categoriesRef: DatabaseReference = database.getReference("Users")
+
+            categoriesRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val customerList: ArrayList<User> = ArrayList()
+
+                    for (customerSnapshot in snapshot.children) {
+                        val customer = customerSnapshot.getValue(User::class.java)
+
+                        if (customer != null) {
+                            customerList.add(customer)
+                        }
+                    }
+
+                    completionHandler(true, customerList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    completionHandler(false, null)
+                }
+            })
+        }
+
+        fun addPoints(point : Int, phoneNo : String, completionHandler: (Boolean, String?) -> Unit) {
+
+
+            val userReferencePath = "Users/$phoneNo/point"
+
+            val referenceString = database.reference.child(userReferencePath).toString()
+
+            val restoredReference = Firebase.database.getReferenceFromUrl(referenceString)
+
+
+            Log.d("addPoints", "addPoints: $phoneNo $restoredReference")
+
+            restoredReference.setValue(point).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    completionHandler(true, "updated")
+                } else {
+                    completionHandler(false, it.exception?.message)
+                }
+            }
         }
 
     }

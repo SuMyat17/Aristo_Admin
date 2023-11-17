@@ -73,6 +73,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                android:id="@+id/btnAddPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium_3"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="@dimen/margin_medium_3"
+                android:background="@drawable/background_border_accent_color"
+                android:padding="@dimen/margin_card_medium"
+                android:text="Point ထည့်ရန်"
+                android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -236,9 +248,10 @@
                 android:id="@+id/btnEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="@dimen/margin_medium_3"
                 android:layout_marginEnd="@dimen/margin_medium_3"
+                android:layout_marginBottom="10dp"
                 android:padding="@dimen/margin_card_medium"
                 android:text="အချက်အလက်ပြင်ဆင်ရန်"
                 android:textColor="@color/black"
