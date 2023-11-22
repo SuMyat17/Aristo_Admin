@@ -94,7 +94,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/background_edit_text"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:paddingStart="@dimen/margin_medium"
             android:singleLine="true" />
 
