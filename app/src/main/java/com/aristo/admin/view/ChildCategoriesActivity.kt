@@ -3,7 +3,6 @@ package com.aristo.admin.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,7 +12,7 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityChildCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewCategory
+import com.aristo.admin.model.NewProduct
 import com.aristo.admin.view.Categories.AddProducts.AddSubCategoryDetailActivity
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,7 +22,7 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
     private lateinit var binding : ActivityChildCategoriesBinding
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
     private var categoryList: List<Category> = listOf()
-    private var newItemsList: List<NewCategory> = listOf()
+    private var newItemsList: List<NewProduct> = listOf()
     private var subCategory: Category? = null
     private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
     private var isFound = false
@@ -101,7 +100,7 @@ class ChildCategoriesActivity : AppCompatActivity(), ChildCategoryListAdapter.Ch
 
     override fun onTapMore(category: Category, type: String) {
 
-        val newProduct = NewCategory(id = category.id)
+        val newProduct = NewProduct(id = category.id)
 
         if (type == "Child") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)

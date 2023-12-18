@@ -13,7 +13,7 @@ import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.model.Admin
 import com.aristo.admin.model.Category
 import com.aristo.admin.model.User
-import com.aristo.admin.model.NewCategory
+import com.aristo.admin.model.NewProduct
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -279,8 +279,7 @@ class CategoryFirebase {
                         completionHandler(true, admin)
                     } else {
                         completionHandler(false, null)
-                    }
-                }
+                    } }
 
                 override fun onCancelled(error: DatabaseError) {
                     completionHandler(false, error.message)
@@ -344,7 +343,7 @@ class CategoryFirebase {
             }
         }
 
-        fun addNewProduct(newProduct: NewCategory, completionHandler: (Boolean, String?) -> Unit) {
+        fun addNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
 
                 referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
 
@@ -363,14 +362,14 @@ class CategoryFirebase {
 
                 restoredReference.setValue(newProduct).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        completionHandler(true, "successs")
+                        completionHandler(true, null)
                     } else {
                         completionHandler(false, it.exception?.message)
                     }
                 }
             }
 
-        fun removeNewProduct(newProduct: NewCategory, completionHandler: (Boolean, String?) -> Unit) {
+        fun removeNewProduct(newProduct: NewProduct, completionHandler: (Boolean, String?) -> Unit) {
 
             referencePathUpDateData = "Products/NewProducts/${newProduct.id}"
 
@@ -386,17 +385,17 @@ class CategoryFirebase {
             }
         }
 
-        fun getNewProducts(completionHandler: (Boolean, ArrayList<NewCategory>?) -> Unit) {
+        fun getNewProducts(completionHandler: (Boolean, ArrayList<NewProduct>?) -> Unit) {
 
             categoriesRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     val categoriesSnapshot = snapshot.child("NewProducts")
-                    val newProductList: ArrayList<NewCategory> = ArrayList()
+                    val newProductList: ArrayList<NewProduct> = ArrayList()
 
                     for (categorySnapshot in categoriesSnapshot.children) {
 
-                        val newProducts = categorySnapshot.getValue(NewCategory::class.java)
+                        val newProducts = categorySnapshot.getValue(NewProduct::class.java)
                         newProducts?.let {
                             newProductList.add(it)
                         }

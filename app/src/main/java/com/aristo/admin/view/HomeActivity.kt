@@ -57,6 +57,9 @@ class HomeActivity : AppCompatActivity() {
         binding.btnHelpCenter.setOnClickListener {
             startActivity(Intent(applicationContext, HelpCenterActivity::class.java))
         }
+        binding.btnAddNewItem.setOnClickListener {
+            startActivity(Intent(applicationContext, AddNewItemActivity::class.java))
+        }
 
         binding.btnNotification.setOnClickListener {
             startActivity(Intent(applicationContext, SendNotificationActivity::class.java))

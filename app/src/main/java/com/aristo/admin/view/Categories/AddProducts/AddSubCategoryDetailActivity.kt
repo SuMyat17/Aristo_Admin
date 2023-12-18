@@ -12,12 +12,11 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import com.aristo.admin.Datas.CategoryDataHolder
 import com.aristo.admin.Datas.DataListHolder
-import com.aristo.admin.Manager.SharedPreferencesManager
 import com.aristo.admin.Manager.Network.CategoryFirebase
 import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityAddSubCategoryDetailBinding
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewCategory
+import com.aristo.admin.model.NewProduct
 import com.bumptech.glide.Glide
 
 class AddSubCategoryDetailActivity : AppCompatActivity(){
@@ -189,7 +188,7 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 }
             }
             if (isNew) {
-                val newProduct = NewCategory(id = category.id)
+                val newProduct = NewProduct(id = category.id)
                 CategoryFirebase.addNewProduct(newProduct) { _, _ -> }
             }
 
@@ -224,7 +223,7 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
             }
 
             if (isNew) {
-                val newProduct = NewCategory(id = category.id)
+                val newProduct = NewProduct(id = category.id)
                 CategoryFirebase.addNewProduct(newProduct) { _, _ -> }
             }
         }
@@ -233,8 +232,6 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
     fun checkToUpload() {
 
         var isTypeShow: Boolean
-
-        Log.d("afdasdfasdf", "${isWithImage} ${selectedImageUri}${binding.etTitle.text} ${binding.etColorCode.text} ${binding.etType.text} ${binding.etPrice.text}")
 
         if (DataListHolder.getInstance().getIsType().isNotEmpty()) {
             if (DataListHolder.getInstance().getIsType().last() == true) {
@@ -344,7 +341,6 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
             if (it.imageURL.isNotEmpty()) {
                 binding.rbAddPicture.isChecked = true
                 Glide.with(this).load(it.imageURL).into(binding.imagePicker)
-
                 binding.imageLayout.visibility = View.VISIBLE
                 binding.colorLayout.visibility = View.GONE
                 isWithImage = false
@@ -353,7 +349,6 @@ class AddSubCategoryDetailActivity : AppCompatActivity(){
                 binding.rbAddColorCode.isChecked = true
                 colorCode = it.colorCode
                 binding.etColorCode.setText(it.colorCode)
-
                 binding.colorLayout.visibility = View.VISIBLE
                 binding.imageLayout.visibility = View.GONE
                 selectedImageUri = Uri.parse("")

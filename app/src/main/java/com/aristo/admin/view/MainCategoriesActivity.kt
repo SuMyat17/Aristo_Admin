@@ -13,7 +13,7 @@ import com.aristo.admin.R
 import com.aristo.admin.databinding.ActivityMainCategoriesBinding
 import com.aristo.admin.databinding.BottomSheetMoreBinding
 import com.aristo.admin.model.Category
-import com.aristo.admin.model.NewCategory
+import com.aristo.admin.model.NewProduct
 import com.aristo.admin.view.Categories.AddProducts.AddSubCategoryDetailActivity
 import com.aristo.admin.view.adapters.MainCategoryListAdapter
 import com.aristo.admin.view.adapters.ChildCategoryListAdapter
@@ -27,7 +27,7 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
     private lateinit var mSubCategoryAdapter: ChildCategoryListAdapter
 
     private var categoryList: List<Category> = listOf()
-    private var newItemsList: List<NewCategory> = listOf()
+    private var newItemsList: List<NewProduct> = listOf()
     private var currentPosition = 0
 
     private val categoryListHolder = CategoryDataHolder.getInstance().updatedCategoryList
@@ -106,7 +106,7 @@ class MainCategoriesActivity : AppCompatActivity(), MainCategoryListAdapter.Main
 
     override fun onTapMore(category: Category, type: String) {
 
-        val newProduct = NewCategory(id = category.id)
+        val newProduct = NewProduct(id = category.id)
 
         if (type == "Main") {
             val dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
